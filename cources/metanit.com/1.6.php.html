@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html  lang="ru">
+<head>
+<title>Python и FastAPI | Параметры строки запроса</title>
+<meta charset="utf-8" />
+<meta name="description" content="Параметры строки запроса в веб-приложении на FastAPI и языке программирования Python, класс Query, валидация параметров, установка значений по умолчанию">
+<meta name="viewport" content="width=device-width">
+<link href="style50.css@v=1.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div id="container">
+<header>
+<div id="header">
+<div id="logo">
+<a class="logoTitle" href="https://metanit.com/" title="На главную">METANIT.COM</a>
+<div class="logoDefinition">Сайт о программировании</div> 
+</div>
+
+<div class="socbtns">
+<ul>
+<li><a title="Посмотреть меню" rel="nofollow" class="fa fa-lg fa-bars"></a></li>
+<li><a href="https://metanit.com/donations.php" title="Помощь сайту" rel="nofollow" style="color: var(--fa-usd-color);" class="fa fa-lg fa-usd"></a></li>
+<li><a href="https://vk.com/metanit" title="Группа в ВКонтакте" rel="nofollow" style="color: var(--fa-vk-color);" class="fa fa-lg fa-vk"></a></li>
+<li><a href="https://t.me/devnull22" title="Группа в Телеграмме"  class="fa fa-lg fa-tel" style="color: var(--fa-tel-color);"></a></li>
+<li><a href="https://metanit.com/android.php" title="Приложения андроид" rel="nofollow" style="color: var(--fa-android-color);" class="fa fa-lg fa-android"></a></li>
+<li><i id="toggle-theme" class="fa fa-lg fa-adjust"></i></li>
+</ul>
+</div>
+
+
+<div id="magnifying-glass"></div>
+
+<div class="menuButton" id="menuButton">
+	<span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+</div>
+</div>
+
+<div id="search" class="transp">
+<form action="https://www.google.ru" id="cse-search-box">
+  <div>
+    <input type="hidden" name="cx" value="partner-pub-3716042175333627:1096498938" />
+    <input type="hidden" name="ie" value="UTF-8" />
+    <input type="text" name="q" />
+    <input type="submit" name="sa" value="Найти" />
+  </div>
+</form>
+</div>
+
+<div id="menu" class="menu">
+<ul class="mainmenu">
+    <li><a href="https://metanit.com/common/">Программирование</a></li>
+    <li><a href="https://metanit.com/assembler/">Ассемблер</a></li>
+   <li><a href="https://metanit.com/sharp/">C#</a></li>
+   <li><a href="https://metanit.com/java/">Java</a></li>
+   <li><a href="https://metanit.com/web/">WEB</a></li>
+   <li><a href="https://metanit.com/python/">Python</a></li>
+   <li><a href="https://metanit.com/c/">C</a></li>
+   <li><a href="https://metanit.com/cpp/">C++</a></li>
+   <li><a href="https://metanit.com/sql/">SQL</a></li>
+   <li><a href="https://metanit.com/nosql/mongodb/">MongoDB</a></li>
+   <li><a href="https://metanit.com/go/">Go</a></li>
+   <li><a href="https://metanit.com/visualbasic/">VB.NET</a></li>
+   <li><a href="https://metanit.com/swift/tutorial/">Swift</a></li>
+   <li><a href="https://metanit.com/kotlin/">Kotlin</a></li>
+   <li><a href="https://metanit.com/dart/">Dart</a></li>
+   <li><a href="https://metanit.com/php/">PHP</a></li>
+   <li><a href="https://metanit.com/rust/">Rust</a></li>
+   <li><a href="https://metanit.com/os/">Linux</a></li>
+   <li><a href="https://metanit.com/f/">F#</a></li>
+   <!--<li><a href="//metanit.com/lisp/tutorial/">Common Lisp</a></li>-->
+   <li><a href="https://metanit.com/hosting">Хостинг</a></li>
+</ul>
+</div>
+
+</header>
+<div class="outercontainer">
+<div class="innercontainer">
+ 
+   <div class="item center menC">
+     <h2>Параметры строки запроса</h2><div class="date">Последнее обновление: 06.09.2022</div>
+	<div class="socBlock">
+	<div class="share soctop">
+	<ul>
+	<li><a title="Поделиться в Вконтакте" rel="nofollow" class="fa fa-lg fa-vk"></a></li>
+	<li><a title="Поделиться в Телеграм" rel="nofollow" class="fa fa-lg fa-telegram"></a></li>
+	<li><a title="Поделиться в Одноклассниках" rel="nofollow" class="fa fa-lg fa-odnoklassniki"></a></li>
+	
+	</ul>
+	</div>
+	</div>
+
+	<div style="margin-top:23px;margin-left:5px;">
+		
+		<style>
+		#yandex_rtb_R-A-201190-1 { width: 100%; height: 250px; overflow:hidden;}
+		@media(min-width: 760px) { #yandex_rtb_R-A-201190-1 { max-width: 728px; height: 90px;  } }
+		@media(min-width: 900px) { #yandex_rtb_R-A-201190-1 { max-width: 468px; height: 90px;  } }
+		@media(min-width: 1100px) { #yandex_rtb_R-A-201190-1{ max-width: 728px; height: 90px;} }
+		@media(min-width: 1400px) { #yandex_rtb_R-A-201190-1 { max-width: 970px; height: 90px;} }
+		</style>
+		<div id="yandex_rtb_R-A-201190-1"></div>
+	</div>
+
+	<p>Параметры строки запроса представляют еще один способ передать в приложение некоторые значения в запросе типа GET. Для начала надо понимать, что такое <span class="b">строка запроса</span>. 
+Например, возьмем следующий адрес</p>
+<pre class="brush:py;">http://127.0.0.1:8000/users/add?name=Tom&age=38</pre>
+<p>Здесь та часть, которая идет после адреса сервера и порта и до вопросительного знака ?, то есть <code>users/add</code>, представляет путь запроса (path). А та часть, которая 
+идет <span class="b">после</span> вопросительного знака, то есть <code>name=Tom&age=38</code>, представляет строку запроса (query string). В данной статье нас будет интересовать прежде всего строка запроса.</p>
+<p>Строка запроса состоит из параметров. Каждый параметр определяется в форме</p>
+<pre class="brush:py;">имя_параметра=значение_параметра</pre>
+<p>Если строка запроса содержит несколько параметров, то они одтеляются друг от друга знаком амперсанда &amp;. Так, в примере в адресом <code>http://127.0.0.1:8000/users/add?name=Tom&age=38</code> 
+строка запроса состоит из двух параметров: параметр <code>name</code> имеет значение "Tom", а параметр <code>age</code> имеет значение 38.</p>
+<p>Для получения значений параметров строки запроса мы можем в функции определить одноименные параметры:</p>
+<pre class="brush:py;">
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/users")
+def get_model(name, age):
+    return {"user_name": name, "user_age": age}
+</pre>
+<img src="pics/1.13.png" alt="Получение параметров строки запроса в веб-приложении на FastAPI и Python" />
+<h3>Значения по умолчанию</h3>
+<p>Вполне может быть, что при обращении к приложению пользователь не передаст значения для какого-либо параметра или даже для всех параметров строки запроса. В примере выше все 
+параметры строки запроса являются обязательными. И если мы не передадим хотя бы один из параметров, то мы получим ошибку.</p>
+<p>Чтобы ошибки не было, можно задать для параметров значения по умолчанию:</p>
+<pre class="brush:py;">
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/users")
+def get_model(name = "Undefined", age = 18):
+    return {"user_name": name, "user_age": age}
+</pre>
+<p>Параметры со значению по умолчанию должны идти после обязательных параметров.</p>
+<h3>Ограничения по типу</h3>
+<p>Также для параметров строки запроса можно задать ограничения по типу:</p>
+<pre class="brush:py;">
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/users")
+def get_model(name: str, age: int = 18):
+    return {"user_name": name, "user_age": age}
+</pre>
+<p>В данном случае параметр name должен представлять тип str, то есть строку, а параметр age - целое число. Если параметру age передать нечисловое значение, то мы получим ошибку.</p>
+<h3>Query</h3>
+<p>Дополнительно для работы с параметрами строки запроса фреймворк предоставляет класс <span class="b">Query</span> из пакета <code>fastapi</code>. Класс Query позволяет прежде всего 
+валидировать значения параметров строки запроса. В частности, через конструктор Query можно установить следующие параметры для валидации значений:</p>
+<ul>
+<li><p><span class="b">min_length</span>: устанавливает минимальное количество символов в значении параметра</p></li>
+<li><p><span class="b">max_length</span>: устанавливает максимальное количество символов в значении параметра</p></li>
+<li><p><span class="b">pattern</span>: устанавливает регулярное выражение, которому должно соответствовать значение параметра</p></li>
+<li><p><span class="b">lt</span>: значение параметра должно быть меньше определенного значения</p></li>
+<li><p><span class="b">le</span>: значение параметра должно быть меньше или равно определенному значению</p></li>
+<li><p><span class="b">gt</span>: значение параметра должно быть больше определенного значения</p></li>
+<li><p><span class="b">ge</span>: значение параметра должно быть больше или равно определенному значению</p></li>
+</ul> 
+<p>Применим некотрые параметры:</p>
+<pre class="brush:py;">
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+@app.get("/users")
+def users(name:str  = Query(min_length=3, max_length=20)):
+    return {"name": name}
+</pre>
+<p>В данном случае через строку запроса получаем параметр <code>name</code>. Причем его значение должно иметь не меньше 3 и не больше 20 символов.</p>
+<img src="pics/1.16.png" alt="Валидация параметров строки запроса в FastAPI" />
+<p>Подобным образом можно использовать другие параметры валидации:</p>
+<pre class="brush:py;">
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+@app.get("/users")
+def users(name:str  = Query(min_length=3, max_length=20), 
+            age: int = Query(ge=18, lt=111)):
+    return {"name": name, "age": age}
+</pre>
+<p>В данном случае добавляется параметр "age", который должен представлять число в диапазоне от 18 (включительно) до 111 (не включая)</p>
+<p>Валидация с помощью регулярного значения:</p>
+<pre class="brush:py;">
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+@app.get("/users")
+def users(phone:str  = Query(pattern=r"^\d{11}$")):
+    return {"phone": phone}
+</pre>
+<p>Здесь параметр phone должен состоять из 11 цифр.</p>
+<p>Query позволяет установить значение по умолчанию с помощью параметра <code>default</code>:</p>
+<pre class="brush:py;">
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+@app.get("/users")
+def users(name: str = Query(default="Undefined", min_length=2)):
+    return {"name": name}
+</pre>
+<p>Здесь, если в запрошенном адресе отстуствует параметр name, то по умолчанию он будет равен строке "Undefined"</p>
+<p>Если параметры должны быть необязательными, то параметру default передается значение <code>None</code>:</p>
+<pre class="brush:py;">
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+@app.get("/users")
+def users(name:str | None = Query(default=None, min_length=2)):
+    if name==None:
+        return {"name": "Undefined"}
+    else:
+        return {"name": name}
+</pre>
+<h3>Получение списков значений</h3>
+<p>Использование класса Query позволяет получать через строку запроса списки. В общем случае списки значений передаются, когда в строке запроса одному параметру несколько раз 
+передаются разные значения. Например, как в запросе по следующему адресу:</p>
+<pre class="brush:py;">
+http://127.0.0.1:8000/users?people=tom&people=Sam&people=Bob
+</pre>
+<p>Здесь параметру people передаются три разных значения, соответственно мы ожидаем, что список people будет содержать три элемента.</p>
+<p>Определим следующее приложение:</p>
+<pre class="brush:py;">
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+@app.get("/users")
+def users(people: list[str]  = Query()):
+    return {"people": people}
+</pre>
+<p>Здесь функция users имеет один параметр - <code>people</code>, который должен представлять список строк - тип <code>list[str]</code>.</p>
+<p>Передадим через строку запроса список значений в виде параметра people, например, с помощью запроса <code>http://127.0.0.1:8000/users?people=tom&people=Sam</code>:</p>
+<img src="pics/1.15.png" alt="передача списков через строку запроса в FastAPI">
+<h3>Сочетание параметров пути и строки запроса</h3>
+<p>При необходимости можно сочетать параметры пути и строки запроса:</p>
+<pre class="brush:py;">
+from fastapi import FastAPI, Path, Query
+
+app = FastAPI()
+
+@app.get("/users/{name}")
+def users(name:str  = Path(min_length=3, max_length=20), 
+            age: int = Query(ge=18, lt=111)):
+    return {"name": name, "age": age}
+</pre>
+<p>В данном случае параметр name представляет параметр пути, а age - параметр строки запроса. И в данном случае мы могли бы обратиться к функции users, например, посредством адреса <code>http://127.0.0.1:8000/users/Tom?age=38</code></p>
+
+	
+
+	<div style="margin-top:25px;">
+<style>
+	#yandex_rtb_R-A-201190-3{ width: 100%; height: 300px;overflow:hidden; }
+	
+	@media(min-width: 760px) { #yandex_rtb_R-A-201190-3{ max-width: 728px;  } }
+	@media(min-width: 900px) { #yandex_rtb_R-A-201190-3{ max-width: 336px; } }
+	@media(min-width: 1100px) { #yandex_rtb_R-A-201190-3{ max-width: 728px; } }
+	@media(min-width: 1400px) { #yandex_rtb_R-A-201190-3{ max-width: 970px;} }
+	</style>
+	<div id="yandex_rtb_R-A-201190-3"></div>
+	</div>
+
+	<div class="nav"><p><a href="1.5.php.html">Назад</a><a href="index.html">Содержание</a><a href="1.7.php.html">Вперед</a></p></div>
+	<div class="socBlock">
+	<div class="share soctop">
+	<ul>
+	<li><a title="Поделиться в Вконтакте" rel="nofollow" class="fa fa-lg fa-vk"></a></li>
+	<li><a title="Поделиться в Телеграм" rel="nofollow" class="fa fa-lg fa-telegram"></a></li>
+	<li><a title="Поделиться в Одноклассниках" rel="nofollow" class="fa fa-lg fa-odnoklassniki"></a></li>
+	
+	</ul>
+	</div>
+	</div>
+  </div>
+
+	<div class="item left">
+     <ul id="browser" class="filetree"> 
+	<li class="closed"><span class="folder">Глава 1. основы FastAPI</span>
+		<ul>
+			<li><span class="file"><a href="1.1.php.html">Что такое FastAPI</a></span></li>
+			<li><span class="file"><a href="1.2.php.html">Класс FastAPI и обработка запроса</a></span></li>
+			<li><span class="file"><a href="1.3.php.html">Отправка ответа</a></span></li>
+			<li><span class="file"><a href="1.4.php.html">Отправка файлов с сервера</a></span></li>
+			<li><span class="file"><a href="1.5.php.html">Параметры пути</a></span></li>
+			<li><span class="file"><a href="1.6.php.html">Параметры строки запроса</a></span></li>
+			<li><span class="file"><a href="1.7.php.html">Отправка статусных кодов</a></span></li>
+			<li><span class="file"><a href="1.8.php.html">Переадресация</a></span></li>
+			<li><span class="file"><a href="1.9.php.html">Статические файлы</a></span></li>
+			<li><span class="file"><a href="1.10.php.html">Получение данных запроса</a></span></li>
+			<li><span class="file"><a href="1.11.php.html">Получение данных запроса в виде объекта класса</a></span></li>
+			<li><span class="file"><a href="1.12.php.html">Создание простейшего API</a></span></li>
+			<li><span class="file"><a href="1.13.php.html">Отправка и получение заголовков</a></span></li>
+			<li><span class="file"><a href="1.14.php.html">Куки</a></span></li>
+			<li><span class="file"><a href="1.15.php.html">Отправка форм</a></span></li>
+		</ul>
+	</li>
+	<li class="closed"><span class="folder">Глава 2. Работа с базой данных через SQLAlchemy</span>
+		<ul>
+			<li><span class="file"><a href="2.1.php.html">Подключение к базе данных и создание таблиц</a></span></li>
+			<li><span class="file"><a href="2.2.php.html">Взаимодействие с базой данных</a></span></li>
+			<li><span class="file"><a href="2.3.php.html">Базовые операции с базой данных в веб-приложении</a></span></li>
+		</ul>
+	</li>
+</ul>   </div>
+</div>
+
+  <div class="item right">
+<div class="help" style="border: 0px;">
+    
+	<div class="help-item">
+		<div class="help-item-name"><a href="https://metanit.com/settings.php">Настройки</a></div>
+	 </div>
+</div>
+			<div class="help">
+
+      <div class="help-header">Помощь сайту</div>
+
+       <div class="help-item">
+		<div class="help-item-name"><a href="https://yoomoney.ru/to/410011174743222" rel="nofollow">Помощь сайту</a></div>
+	 </div>
+       
+      <div class="help-item">
+		<div class="help-item-name">Юмани:</div>
+		<div class="help-item-req">410011174743222</div>
+	 </div>
+
+		<div class="help-item">
+			<div class="help-item-name">Номер карты:</div>
+			<div class="help-item-req">4048415020898850</div>
+		</div>
+
+      </div>
+
+	<style>
+	#yandex_rtb_R-A-201190-7 { width: 100%; height: 300px;  margin-top:10px;}
+	@media(min-width: 500px) { #yandex_rtb_R-A-201190-7{ width: 336px;} }
+	@media(min-width: 900px) { #yandex_rtb_R-A-201190-7 { width: 160px; height: 600px; position: sticky; top: 10px;} }
+	@media(min-width: 1300px) { #yandex_rtb_R-A-201190-7 { width: 300px; height: 600px; } }
+	</style>
+	<div id="yandex_rtb_R-A-201190-7"></div>
+
+
+
+
+  </div>
+</div>
+
+<div id="footer" style="padding-bottom:85px;">
+
+<div class="bootomLinks">
+<a href="https://vk.com/metanit" title="Присоединиться к группе вконтакте" rel="nofollow">
+Вконтакте</a>|
+ <a href="https://t.me/devnull22" title="Подписаться на телеграм" rel="nofollow">
+Телеграм</a> | 
+<a href="https://metanit.com/donations.php" rel="nofollow">Донаты/Помощь сайту</a>
+</div>
+<p>Contacts: metanit22@mail.ru</p>
+<p>Copyright &copy; Евгений Попов, metanit.com, 2026. Все права защищены.</p>
+
+
+</div>
+
+</div>
+
+<script>window.yaContextCb=window.yaContextCb||[]</script>
+<script src="https://yandex.ru/ads/system/context.js" async></script>
+
+<script>window.yaContextCb.push(()=>{
+  Ya.Context.AdvManager.render({
+    renderTo: 'yandex_rtb_R-A-201190-1',
+    blockId: 'R-A-201190-1'
+  })
+});
+window.yaContextCb.push(()=>{
+  Ya.Context.AdvManager.render({
+    renderTo: 'yandex_rtb_R-A-201190-3',
+    blockId: 'R-A-201190-3'
+  })
+});
+window.yaContextCb.push(()=>{
+  Ya.Context.AdvManager.render({
+    renderTo: 'yandex_rtb_R-A-201190-7',
+    blockId: 'R-A-201190-7'
+  })
+});
+if(document.getElementById("yandex_rtb_R-A-201190-8")){
+window.yaContextCb.push(()=>{
+  Ya.Context.AdvManager.render({
+    renderTo: 'yandex_rtb_R-A-201190-8',
+    blockId: 'R-A-201190-8'
+  })
+});
+}
+if(document.getElementById("yandex_rtb_R-A-201190-9")){
+window.yaContextCb.push(() => {
+    Ya.Context.AdvManager.render({
+        "blockId": "R-A-201190-9",
+        "renderTo": "yandex_rtb_R-A-201190-9"
+    })
+});
+}</script>
+
+
+<script src='syntax16.js'></script>
+<script>
+SyntaxHighlighter.all();
+document.addEventListener('copy', (ev) => {
+const et = event.target;if(et.type==="textarea"){ev.clipboardData.setData('text/plain',et.value.substring(et.selectionStart,et.selectionEnd).replace(/\u00A0/g, " "));ev.preventDefault();}
+});
+console.log("Copyright © Евгений Попов, metani" + "t.com, 2026. Все права защищены.");
+</script>
+<script>
+
+window.yaContextCb.push(() => {
+      if (Ya.Context.AdvManager.getPlatform() === 'desktop') {
+        Ya.Context.AdvManager.render({
+			"blockId": "R-A-201190-11",
+			"type": "floorAd",
+			"platform": "desktop"
+		});
+      } else {
+        Ya.Context.AdvManager.render({
+			"blockId": "R-A-201190-12",
+			"type": "floorAd",
+			"platform": "touch"
+		});
+      }
+  });
+
+
+document.querySelector(".fa-bars").addEventListener("click", ()=>{ 
+		const tree = document.querySelector(".item.left");
+		const display = tree.style.display;
+		if(display=="block") tree.style.display = "none";
+		else tree.style.display = "block";
+});
+
+const menuButton = document.getElementById("menuButton");
+document.getElementById("menuButton").addEventListener("click", ()=>{ 
+		menuButton.classList.toggle("menu-opened");
+		document.querySelector(".mainmenu").classList.toggle("open");
+});
+
+
+document.getElementById("magnifying-glass").addEventListener("click", ()=> 
+	document.getElementById("search").classList.toggle("transp")
+);
+
+document.getElementById("toggle-theme").addEventListener("click", ()=>{
+		if(document.documentElement.hasAttribute("theme")){
+			document.documentElement.removeAttribute("theme");
+			document.cookie="theme=1;expires=Mon, 19 Feb 2001 12:00:00 UTC;path=/;";
+		}
+		else{
+			document.documentElement.setAttribute("theme", "dark");
+			var expire = new Date();
+			expire.setHours(expire.getHours() + 7);
+			document.cookie="theme=1;expires=" + expire.toUTCString() + ";path=/;";
+		}
+	});
+
+
+
+
+document.querySelectorAll(".share .fa-vk").forEach(e => e.addEventListener("click", ()=> window.open("http://vk.com/share.php?url=" + window.location.href,"Поделиться в ВКОНТАКТЕ")));
+document.querySelectorAll(".share .fa-telegram").forEach(e => e.addEventListener("click", ()=> window.open("tg://msg_url/url=" + window.location.href,"Поделиться в Telegram")));
+document.querySelectorAll(".share .fa-odnoklassniki").forEach(e => e.addEventListener("click", ()=>window.open("https://connect.ok.ru/offer?url=" + window.location.href,"Поделиться в Одноклассниках")));
+
+const folders = document.getElementsByClassName("closed");
+for (let i = 0; i < folders.length; i++) {
+  folders[i].addEventListener("click", function() {
+
+    this.classList.toggle("closed");
+    this.classList.toggle("opened");
+  });
+}
+
+const activeItem = document.querySelector(".file a[href='//metanit.com" + location.pathname + "']");
+if(activeItem){
+activeItem.classList.add("aMItem");
+activeItem.parentElement.classList.add("aMItem");
+const activeFolder = activeItem.closest("li.closed");
+activeFolder.classList.toggle("closed");
+activeFolder.classList.toggle("opened");
+activeFolder.querySelector(".folder")?.classList.add("aMItem");
+}
+
+const props = ["--main-font-size", "--main-font-family", "--menc-bg-color", "--container-bg-color", "--menu-bg-color", "--code-font-size", "--code-font-family", "--code-bgcolor", "--code-max-height"];
+for(let i = 0; i < props.length; i++){
+    
+	const propValue = localStorage.getItem(props[i]);
+	if(propValue!==null)document.documentElement.style.setProperty(props[i], propValue);
+}
+</script>
+
+
+<script async defer type="text/javascript" src="https://www.google.ru/coop/cse/brand?form=cse-search-box&amp;lang=ru"></script>
+</body>
+</html>

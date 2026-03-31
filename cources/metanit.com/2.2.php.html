@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html  lang="ru">
+<head>
+<title>Python и FastAPI | Взаимодействие с базой данных</title>
+<meta charset="utf-8" />
+<meta name="description" content="Взаимодействие с базой данных SQLite с помощью ORM SQLAlchemy в веб-приложении на FastAPI и языке программирования Python, функции sessionmaker, создание сессии базы данных Session и SessionLocal, базовые операции CRUD с базой данных">
+<meta name="viewport" content="width=device-width">
+<link href="style50.css@v=1.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div id="container">
+<header>
+<div id="header">
+<div id="logo">
+<a class="logoTitle" href="https://metanit.com/" title="На главную">METANIT.COM</a>
+<div class="logoDefinition">Сайт о программировании</div> 
+</div>
+
+<div class="socbtns">
+<ul>
+<li><a title="Посмотреть меню" rel="nofollow" class="fa fa-lg fa-bars"></a></li>
+<li><a href="https://metanit.com/donations.php" title="Помощь сайту" rel="nofollow" style="color: var(--fa-usd-color);" class="fa fa-lg fa-usd"></a></li>
+<li><a href="https://vk.com/metanit" title="Группа в ВКонтакте" rel="nofollow" style="color: var(--fa-vk-color);" class="fa fa-lg fa-vk"></a></li>
+<li><a href="https://t.me/devnull22" title="Группа в Телеграмме"  class="fa fa-lg fa-tel" style="color: var(--fa-tel-color);"></a></li>
+<li><a href="https://metanit.com/android.php" title="Приложения андроид" rel="nofollow" style="color: var(--fa-android-color);" class="fa fa-lg fa-android"></a></li>
+<li><i id="toggle-theme" class="fa fa-lg fa-adjust"></i></li>
+</ul>
+</div>
+
+
+<div id="magnifying-glass"></div>
+
+<div class="menuButton" id="menuButton">
+	<span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+</div>
+</div>
+
+<div id="search" class="transp">
+<form action="https://www.google.ru" id="cse-search-box">
+  <div>
+    <input type="hidden" name="cx" value="partner-pub-3716042175333627:1096498938" />
+    <input type="hidden" name="ie" value="UTF-8" />
+    <input type="text" name="q" />
+    <input type="submit" name="sa" value="Найти" />
+  </div>
+</form>
+</div>
+
+<div id="menu" class="menu">
+<ul class="mainmenu">
+    <li><a href="https://metanit.com/common/">Программирование</a></li>
+    <li><a href="https://metanit.com/assembler/">Ассемблер</a></li>
+   <li><a href="https://metanit.com/sharp/">C#</a></li>
+   <li><a href="https://metanit.com/java/">Java</a></li>
+   <li><a href="https://metanit.com/web/">WEB</a></li>
+   <li><a href="https://metanit.com/python/">Python</a></li>
+   <li><a href="https://metanit.com/c/">C</a></li>
+   <li><a href="https://metanit.com/cpp/">C++</a></li>
+   <li><a href="https://metanit.com/sql/">SQL</a></li>
+   <li><a href="https://metanit.com/nosql/mongodb/">MongoDB</a></li>
+   <li><a href="https://metanit.com/go/">Go</a></li>
+   <li><a href="https://metanit.com/visualbasic/">VB.NET</a></li>
+   <li><a href="https://metanit.com/swift/tutorial/">Swift</a></li>
+   <li><a href="https://metanit.com/kotlin/">Kotlin</a></li>
+   <li><a href="https://metanit.com/dart/">Dart</a></li>
+   <li><a href="https://metanit.com/php/">PHP</a></li>
+   <li><a href="https://metanit.com/rust/">Rust</a></li>
+   <li><a href="https://metanit.com/os/">Linux</a></li>
+   <li><a href="https://metanit.com/f/">F#</a></li>
+   <!--<li><a href="//metanit.com/lisp/tutorial/">Common Lisp</a></li>-->
+   <li><a href="https://metanit.com/hosting">Хостинг</a></li>
+</ul>
+</div>
+
+</header>
+<div class="outercontainer">
+<div class="innercontainer">
+ 
+   <div class="item center menC">
+     <h2>Взаимодействие с базой данных</h2><div class="date">Последнее обновление: 07.09.2022</div>
+	<div class="socBlock">
+	<div class="share soctop">
+	<ul>
+	<li><a title="Поделиться в Вконтакте" rel="nofollow" class="fa fa-lg fa-vk"></a></li>
+	<li><a title="Поделиться в Телеграм" rel="nofollow" class="fa fa-lg fa-telegram"></a></li>
+	<li><a title="Поделиться в Одноклассниках" rel="nofollow" class="fa fa-lg fa-odnoklassniki"></a></li>
+	
+	</ul>
+	</div>
+	</div>
+
+	<div style="margin-top:23px;margin-left:5px;">
+		
+		<style>
+		#yandex_rtb_R-A-201190-1 { width: 100%; height: 250px; overflow:hidden;}
+		@media(min-width: 760px) { #yandex_rtb_R-A-201190-1 { max-width: 728px; height: 90px;  } }
+		@media(min-width: 900px) { #yandex_rtb_R-A-201190-1 { max-width: 468px; height: 90px;  } }
+		@media(min-width: 1100px) { #yandex_rtb_R-A-201190-1{ max-width: 728px; height: 90px;} }
+		@media(min-width: 1400px) { #yandex_rtb_R-A-201190-1 { max-width: 970px; height: 90px;} }
+		</style>
+		<div id="yandex_rtb_R-A-201190-1"></div>
+	</div>
+
+	<h3>Создание сессии базы данных</h3>
+<p>Для взаимодействия с базой данных необходимо создать <span class="b">сессию базы данных</span>, которая представляет объект  <span class="b">sqlalchemy.orm.Session</span>. Через 
+этот объект идет вся работа с БД. Но для этого вначале надо создать класс-построитель Session с помощью функции-фабрики <span class="b">sessionmaker()</span></p>
+<pre class="brush:py;">
+from sqlalchemy.orm import sessionmaker
+
+SessionLocal = sessionmaker(autoflush=False, bind=engine)
+</pre>
+<p>эта функция принимает ряд параметров, в частности, здесь применяется два параметра</p>
+<ul>
+<li><p><code>autoflush</code>: при значении True (значение по умолчанию) будет автоматически вызываться метод <code>Session.flush()</code>, который записывает все изменения в базу данных</p></li>
+<li><p><code>bind</code>: привязывает сессию бд к определенному движку, который применяется для установки подключения</p></li>
+</ul>
+<p>Результатом функции является класс <code>SessionLocal</code>. После этого можно создать объект этого класса и через него взаимодействовать в бд:</p>
+<pre class="brush:py;">
+from sqlalchemy.orm import sessionmaker
+
+SessionLocal = sessionmaker(autoflush=False, bind=engine)
+db = SessionLocal()
+</pre>
+<p>Здесь db как раз представляет объект Session.</p>
+<h3>CRUD</h3>
+<p>Рассмотрим простейшие операции CRUD (Create-Read-Update-Delete).</p>
+<h4>Добавление данных</h4>
+<p>Для добавления в базу данных необходимо сначала создать объект модели, который передается в метод <span class="b">add()</span> объекта Session. После добавления 
+для подтверждения изменений у объекта Session вызывается метод <span class="b">commit()</span></p>
+<pre class="brush:py;">
+# создаем объект Person для добавления в бд
+tom = Person(name="Tom", age=38)
+db.add(tom)     # добавляем в бд
+db.commit()     # сохраняем изменения
+</pre>
+<p>Например, определим файле приложения следующий код:</p>
+<pre class="brush:py;">
+from sqlalchemy import create_engine
+from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.orm import sessionmaker, Session
+from sqlalchemy import  Column, Integer, String
+
+from fastapi import FastAPI
+
+SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db"
+engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
+
+# создаем модель, объекты которой будут храниться в бд
+class Base(DeclarativeBase): pass
+class Person(Base):
+    __tablename__ = "people"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String)
+    age = Column(Integer,)
+
+# создаем таблицы
+Base.metadata.create_all(bind=engine)
+
+# создаем сессию подключения к бд
+SessionLocal = sessionmaker(autoflush=False, bind=engine)
+db = SessionLocal()
+
+# создаем объект Person для добавления в бд
+tom = Person(name="Tom", age=38)
+db.add(tom)     # добавляем в бд
+db.commit()     # сохраняем изменения
+
+print(tom.id)   # можно получить установленный id
+
+# приложение, которое ничего не делает
+app = FastAPI()
+</pre>
+<p>В данном случае создается объект Person, который добавляется в бд. Если после этого мы откроем бд, то сможем увидеть добавленный объект:</p>
+<img src="pics/2.3.png" alt="Добавление данных в БД" />
+<p>Стоит отметить, что в данным случае в классе Person атрибут id выступает в качестве первичного ключа и генерируется в самой бд при добавлении строки в таблицу. Но после 
+добавления объекта мы можем получить значение данного атрибута:</p>
+<pre class="brush:py;">print(tom.id)</pre>
+<p>Следует отметить, что после добавления или обновления объекта, если мы хотим использовать этот объект, обращаться к его атрибутами, то желательно, а иногда может быть необходимо, использовать метод 
+<span class="b">refresh()</span>, который обновляет состояние объекта:</p>
+<pre class="brush:py;">
+# создаем объект Person для добавления в бд
+tom = Person(name="Tom", age=38)
+db.add(tom)     # добавляем в бд
+db.commit()     # сохраняем изменения
+db.refresh(tom)  # обновляем состояние объекта
+print(tom.id)   # можно получить установленный id
+</pre>
+<p>Подобным образом можно добавить несколько объектов:</p>
+<pre class="brush:py;">
+bob = Person(name="Bob", age=42)
+sam = Person(name="Sam", age=25)
+db.add(bob)
+db.add(sam)
+db.commit()
+</pre>
+<p>Причем метод <code>commit()</code> вызывается только один раз.</p>
+<p>Однако есть надо добавить несколько объектов, то проще применить метод <span class="b">add_all()</span>, который добавляет список объектов:</p>
+<pre class="brush:py;">
+alice = Person(name="Alice", age=33)
+kate = Person(name="Kate", age=28)
+db.add_all([alice, kate])
+db.commit()
+</pre>
+<h3>Получение данных</h3>
+<p>Для получения объектов из базы данных вначале у объекта Session необходимо вызывать метод <span class="b">query()</span> - в него передается тип модели, данные которой необходимо получить:</p>
+<pre class="brush:py;">
+db.query(Person)
+</pre>
+<p>Но данный метод просто создает объект Query - некоторый запрос, который будет выполнен в будущем при непосредственном получении данных. Далее применяя к объекту Query различные методы, мы можем получить непосредственный результат. 
+Например, если надо получить все объекты, применяется метод <span class="b">all()</span>:</p>
+<pre class="brush:py;">people = db.query(Person).all()</pre>
+<p>Метод all возращает список объектов модели. Полный код:</p>
+<pre class="brush:py;">
+from sqlalchemy import create_engine
+from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy import  Column, Integer, String
+
+from fastapi import FastAPI
+
+SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db"
+engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
+
+
+class Base(DeclarativeBase): pass
+class Person(Base):
+    __tablename__ = "people"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String)
+    age = Column(Integer,)
+
+SessionLocal = sessionmaker(autoflush=False, bind=engine)
+db = SessionLocal()
+
+# получение всех объектов
+people = db.query(Person).all()
+for p in people:
+    print(f"{p.id}.{p.name} ({p.age})")
+
+# приложение, которое ничего не делает
+app = FastAPI()
+</pre>
+<img src="pics/2.4.png" alt="Получение данных из базы данных через SQLAlchemy в FastAPI и Python" />
+<p>Для получения одного объекта по id применяется метод <span class="b">get()</span> класса Session. В качестве параметров метод  получает тип модели и идентификатор объекта, 
+который надо получить. Например, получим один объект Person, у которого id = 1:</p>
+<pre class="brush:py;">
+# получение одного объекта по id
+first_person = db.get(Person, 1)
+print(f"{first_person.name} - {first_person.age}")  
+# Tom - 38
+</pre>
+<p>Для фильтрации у объекта Query применяется метод <span class="b">filter()</span>, который принимает условие фильтрации. Например:</p>
+<pre class="brush:py;">
+people = db.query(Person).filter(Person.age &gt; 30).all()
+for p in people:
+    print(f"{p.id}.{p.name} ({p.age})")
+</pre>
+<p>Здесь получаем все объекты Person, у которых значение атрибута age более 30. Метод <code>filter()</code> также возвращает объект Query, поэтому для получения собственно 
+списка объектов, которые соответствуют фильтру, в конце по цепочке применяется метод <code>all()</code></p>
+<p>Для получения только одного объекта применяется метод <span class="b">first()</span> класса Query:</p>
+<pre class="brush:py;">
+first = db.query(Person).filter(Person.id==1).first()
+print(f"{first.name} ({first.age})")
+</pre>
+<p>В данном случае получаем объект Person, у которого id = 1.</p>
+<p>Стоит отметить, что методы <code>get()</code> и <code>first()</code> возвращают <span class="b">None</span>, если объект не найден. 
+Поэтому при получении одиночного объекта желательно проверять его на значение None.</p>
+<h3>Обновление</h3>
+<p>Для обновления объекта достаточно изменить значения его атрибутов и затем вызвать у объекта Session метод <span class="b">commit()</span> для применения изменений:</p>
+<pre class="brush:py;">
+# получаем один объект, у которого имя - Tom
+tom = db.query(Person).filter(Person.id==1).first()
+print(f"{tom.id}.{tom.name} ({tom.age})")   
+# 1.Tom (38)
+
+# изменениям значения
+tom.name = "Tomas"
+tom.age = 22
+
+db.commit() # сохраняем изменения
+
+# проверяем, что изменения применены в бд - получаем один объект, у которого имя - Tomas
+tomas = db.query(Person).filter(Person.id == 1).first()
+print(f"{tomas.id}.{tomas.name} ({tomas.age})")    
+# 1.Tomas (22)
+</pre>
+<h4>Удаление</h4>
+<p>Для удаления у объекта Session применяется метод <span class="b">delete()</span>, в который передается удаляемый объект:</p>
+<pre class="brush:py;">
+bob = db.query(Person).filter(Person.id==2).first()
+db.delete(bob)  # удаляем объект
+db.commit()     # сохраняем изменения
+</pre>
+
+	
+
+	<div style="margin-top:25px;">
+<style>
+	#yandex_rtb_R-A-201190-3{ width: 100%; height: 300px;overflow:hidden; }
+	
+	@media(min-width: 760px) { #yandex_rtb_R-A-201190-3{ max-width: 728px;  } }
+	@media(min-width: 900px) { #yandex_rtb_R-A-201190-3{ max-width: 336px; } }
+	@media(min-width: 1100px) { #yandex_rtb_R-A-201190-3{ max-width: 728px; } }
+	@media(min-width: 1400px) { #yandex_rtb_R-A-201190-3{ max-width: 970px;} }
+	</style>
+	<div id="yandex_rtb_R-A-201190-3"></div>
+	</div>
+
+	<div class="nav"><p><a href="2.1.php.html">Назад</a><a href="index.html">Содержание</a><a href="2.3.php.html">Вперед</a></p></div>
+	<div class="socBlock">
+	<div class="share soctop">
+	<ul>
+	<li><a title="Поделиться в Вконтакте" rel="nofollow" class="fa fa-lg fa-vk"></a></li>
+	<li><a title="Поделиться в Телеграм" rel="nofollow" class="fa fa-lg fa-telegram"></a></li>
+	<li><a title="Поделиться в Одноклассниках" rel="nofollow" class="fa fa-lg fa-odnoklassniki"></a></li>
+	
+	</ul>
+	</div>
+	</div>
+  </div>
+
+	<div class="item left">
+     <ul id="browser" class="filetree"> 
+	<li class="closed"><span class="folder">Глава 1. основы FastAPI</span>
+		<ul>
+			<li><span class="file"><a href="1.1.php.html">Что такое FastAPI</a></span></li>
+			<li><span class="file"><a href="1.2.php.html">Класс FastAPI и обработка запроса</a></span></li>
+			<li><span class="file"><a href="1.3.php.html">Отправка ответа</a></span></li>
+			<li><span class="file"><a href="1.4.php.html">Отправка файлов с сервера</a></span></li>
+			<li><span class="file"><a href="1.5.php.html">Параметры пути</a></span></li>
+			<li><span class="file"><a href="1.6.php.html">Параметры строки запроса</a></span></li>
+			<li><span class="file"><a href="1.7.php.html">Отправка статусных кодов</a></span></li>
+			<li><span class="file"><a href="1.8.php.html">Переадресация</a></span></li>
+			<li><span class="file"><a href="1.9.php.html">Статические файлы</a></span></li>
+			<li><span class="file"><a href="1.10.php.html">Получение данных запроса</a></span></li>
+			<li><span class="file"><a href="1.11.php.html">Получение данных запроса в виде объекта класса</a></span></li>
+			<li><span class="file"><a href="1.12.php.html">Создание простейшего API</a></span></li>
+			<li><span class="file"><a href="1.13.php.html">Отправка и получение заголовков</a></span></li>
+			<li><span class="file"><a href="1.14.php.html">Куки</a></span></li>
+			<li><span class="file"><a href="1.15.php.html">Отправка форм</a></span></li>
+		</ul>
+	</li>
+	<li class="closed"><span class="folder">Глава 2. Работа с базой данных через SQLAlchemy</span>
+		<ul>
+			<li><span class="file"><a href="2.1.php.html">Подключение к базе данных и создание таблиц</a></span></li>
+			<li><span class="file"><a href="2.2.php.html">Взаимодействие с базой данных</a></span></li>
+			<li><span class="file"><a href="2.3.php.html">Базовые операции с базой данных в веб-приложении</a></span></li>
+		</ul>
+	</li>
+</ul>   </div>
+</div>
+
+  <div class="item right">
+<div class="help" style="border: 0px;">
+    
+	<div class="help-item">
+		<div class="help-item-name"><a href="https://metanit.com/settings.php">Настройки</a></div>
+	 </div>
+</div>
+			<div class="help">
+
+      <div class="help-header">Помощь сайту</div>
+
+       <div class="help-item">
+		<div class="help-item-name"><a href="https://yoomoney.ru/to/410011174743222" rel="nofollow">Помощь сайту</a></div>
+	 </div>
+       
+      <div class="help-item">
+		<div class="help-item-name">Юмани:</div>
+		<div class="help-item-req">410011174743222</div>
+	 </div>
+
+		<div class="help-item">
+			<div class="help-item-name">Номер карты:</div>
+			<div class="help-item-req">4048415020898850</div>
+		</div>
+
+      </div>
+
+	<style>
+	#yandex_rtb_R-A-201190-7 { width: 100%; height: 300px;  margin-top:10px;}
+	@media(min-width: 500px) { #yandex_rtb_R-A-201190-7{ width: 336px;} }
+	@media(min-width: 900px) { #yandex_rtb_R-A-201190-7 { width: 160px; height: 600px; position: sticky; top: 10px;} }
+	@media(min-width: 1300px) { #yandex_rtb_R-A-201190-7 { width: 300px; height: 600px; } }
+	</style>
+	<div id="yandex_rtb_R-A-201190-7"></div>
+
+
+
+
+  </div>
+</div>
+
+<div id="footer" style="padding-bottom:85px;">
+
+<div class="bootomLinks">
+<a href="https://vk.com/metanit" title="Присоединиться к группе вконтакте" rel="nofollow">
+Вконтакте</a>|
+ <a href="https://t.me/devnull22" title="Подписаться на телеграм" rel="nofollow">
+Телеграм</a> | 
+<a href="https://metanit.com/donations.php" rel="nofollow">Донаты/Помощь сайту</a>
+</div>
+<p>Contacts: metanit22@mail.ru</p>
+<p>Copyright &copy; Евгений Попов, metanit.com, 2026. Все права защищены.</p>
+
+
+</div>
+
+</div>
+
+<script>window.yaContextCb=window.yaContextCb||[]</script>
+<script src="https://yandex.ru/ads/system/context.js" async></script>
+
+<script>window.yaContextCb.push(()=>{
+  Ya.Context.AdvManager.render({
+    renderTo: 'yandex_rtb_R-A-201190-1',
+    blockId: 'R-A-201190-1'
+  })
+});
+window.yaContextCb.push(()=>{
+  Ya.Context.AdvManager.render({
+    renderTo: 'yandex_rtb_R-A-201190-3',
+    blockId: 'R-A-201190-3'
+  })
+});
+window.yaContextCb.push(()=>{
+  Ya.Context.AdvManager.render({
+    renderTo: 'yandex_rtb_R-A-201190-7',
+    blockId: 'R-A-201190-7'
+  })
+});
+if(document.getElementById("yandex_rtb_R-A-201190-8")){
+window.yaContextCb.push(()=>{
+  Ya.Context.AdvManager.render({
+    renderTo: 'yandex_rtb_R-A-201190-8',
+    blockId: 'R-A-201190-8'
+  })
+});
+}
+if(document.getElementById("yandex_rtb_R-A-201190-9")){
+window.yaContextCb.push(() => {
+    Ya.Context.AdvManager.render({
+        "blockId": "R-A-201190-9",
+        "renderTo": "yandex_rtb_R-A-201190-9"
+    })
+});
+}</script>
+
+
+<script src='syntax16.js'></script>
+<script>
+SyntaxHighlighter.all();
+document.addEventListener('copy', (ev) => {
+const et = event.target;if(et.type==="textarea"){ev.clipboardData.setData('text/plain',et.value.substring(et.selectionStart,et.selectionEnd).replace(/\u00A0/g, " "));ev.preventDefault();}
+});
+console.log("Copyright © Евгений Попов, metani" + "t.com, 2026. Все права защищены.");
+</script>
+<script>
+
+window.yaContextCb.push(() => {
+      if (Ya.Context.AdvManager.getPlatform() === 'desktop') {
+        Ya.Context.AdvManager.render({
+			"blockId": "R-A-201190-11",
+			"type": "floorAd",
+			"platform": "desktop"
+		});
+      } else {
+        Ya.Context.AdvManager.render({
+			"blockId": "R-A-201190-12",
+			"type": "floorAd",
+			"platform": "touch"
+		});
+      }
+  });
+
+
+document.querySelector(".fa-bars").addEventListener("click", ()=>{ 
+		const tree = document.querySelector(".item.left");
+		const display = tree.style.display;
+		if(display=="block") tree.style.display = "none";
+		else tree.style.display = "block";
+});
+
+const menuButton = document.getElementById("menuButton");
+document.getElementById("menuButton").addEventListener("click", ()=>{ 
+		menuButton.classList.toggle("menu-opened");
+		document.querySelector(".mainmenu").classList.toggle("open");
+});
+
+
+document.getElementById("magnifying-glass").addEventListener("click", ()=> 
+	document.getElementById("search").classList.toggle("transp")
+);
+
+document.getElementById("toggle-theme").addEventListener("click", ()=>{
+		if(document.documentElement.hasAttribute("theme")){
+			document.documentElement.removeAttribute("theme");
+			document.cookie="theme=1;expires=Mon, 19 Feb 2001 12:00:00 UTC;path=/;";
+		}
+		else{
+			document.documentElement.setAttribute("theme", "dark");
+			var expire = new Date();
+			expire.setHours(expire.getHours() + 7);
+			document.cookie="theme=1;expires=" + expire.toUTCString() + ";path=/;";
+		}
+	});
+
+
+
+
+document.querySelectorAll(".share .fa-vk").forEach(e => e.addEventListener("click", ()=> window.open("http://vk.com/share.php?url=" + window.location.href,"Поделиться в ВКОНТАКТЕ")));
+document.querySelectorAll(".share .fa-telegram").forEach(e => e.addEventListener("click", ()=> window.open("tg://msg_url/url=" + window.location.href,"Поделиться в Telegram")));
+document.querySelectorAll(".share .fa-odnoklassniki").forEach(e => e.addEventListener("click", ()=>window.open("https://connect.ok.ru/offer?url=" + window.location.href,"Поделиться в Одноклассниках")));
+
+const folders = document.getElementsByClassName("closed");
+for (let i = 0; i < folders.length; i++) {
+  folders[i].addEventListener("click", function() {
+
+    this.classList.toggle("closed");
+    this.classList.toggle("opened");
+  });
+}
+
+const activeItem = document.querySelector(".file a[href='//metanit.com" + location.pathname + "']");
+if(activeItem){
+activeItem.classList.add("aMItem");
+activeItem.parentElement.classList.add("aMItem");
+const activeFolder = activeItem.closest("li.closed");
+activeFolder.classList.toggle("closed");
+activeFolder.classList.toggle("opened");
+activeFolder.querySelector(".folder")?.classList.add("aMItem");
+}
+
+const props = ["--main-font-size", "--main-font-family", "--menc-bg-color", "--container-bg-color", "--menu-bg-color", "--code-font-size", "--code-font-family", "--code-bgcolor", "--code-max-height"];
+for(let i = 0; i < props.length; i++){
+    
+	const propValue = localStorage.getItem(props[i]);
+	if(propValue!==null)document.documentElement.style.setProperty(props[i], propValue);
+}
+</script>
+
+
+<script async defer type="text/javascript" src="https://www.google.ru/coop/cse/brand?form=cse-search-box&amp;lang=ru"></script>
+</body>
+</html>

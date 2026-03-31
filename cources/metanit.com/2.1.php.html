@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html  lang="ru">
+<head>
+<title>Python и FastAPI | Подключение к базе данных и создание таблиц</title>
+<meta charset="utf-8" />
+<meta name="description" content="Подключение к базе данных и создание таблиц с помощью ORM SQLAlchemy на примере SQLite в веб-приложении на FastAPI и языке программирования Python, функции create_engine и declarative_base, определение моделей">
+<meta name="viewport" content="width=device-width">
+<link href="style50.css@v=1.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div id="container">
+<header>
+<div id="header">
+<div id="logo">
+<a class="logoTitle" href="https://metanit.com/" title="На главную">METANIT.COM</a>
+<div class="logoDefinition">Сайт о программировании</div> 
+</div>
+
+<div class="socbtns">
+<ul>
+<li><a title="Посмотреть меню" rel="nofollow" class="fa fa-lg fa-bars"></a></li>
+<li><a href="https://metanit.com/donations.php" title="Помощь сайту" rel="nofollow" style="color: var(--fa-usd-color);" class="fa fa-lg fa-usd"></a></li>
+<li><a href="https://vk.com/metanit" title="Группа в ВКонтакте" rel="nofollow" style="color: var(--fa-vk-color);" class="fa fa-lg fa-vk"></a></li>
+<li><a href="https://t.me/devnull22" title="Группа в Телеграмме"  class="fa fa-lg fa-tel" style="color: var(--fa-tel-color);"></a></li>
+<li><a href="https://metanit.com/android.php" title="Приложения андроид" rel="nofollow" style="color: var(--fa-android-color);" class="fa fa-lg fa-android"></a></li>
+<li><i id="toggle-theme" class="fa fa-lg fa-adjust"></i></li>
+</ul>
+</div>
+
+
+<div id="magnifying-glass"></div>
+
+<div class="menuButton" id="menuButton">
+	<span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+</div>
+</div>
+
+<div id="search" class="transp">
+<form action="https://www.google.ru" id="cse-search-box">
+  <div>
+    <input type="hidden" name="cx" value="partner-pub-3716042175333627:1096498938" />
+    <input type="hidden" name="ie" value="UTF-8" />
+    <input type="text" name="q" />
+    <input type="submit" name="sa" value="Найти" />
+  </div>
+</form>
+</div>
+
+<div id="menu" class="menu">
+<ul class="mainmenu">
+    <li><a href="https://metanit.com/common/">Программирование</a></li>
+    <li><a href="https://metanit.com/assembler/">Ассемблер</a></li>
+   <li><a href="https://metanit.com/sharp/">C#</a></li>
+   <li><a href="https://metanit.com/java/">Java</a></li>
+   <li><a href="https://metanit.com/web/">WEB</a></li>
+   <li><a href="https://metanit.com/python/">Python</a></li>
+   <li><a href="https://metanit.com/c/">C</a></li>
+   <li><a href="https://metanit.com/cpp/">C++</a></li>
+   <li><a href="https://metanit.com/sql/">SQL</a></li>
+   <li><a href="https://metanit.com/nosql/mongodb/">MongoDB</a></li>
+   <li><a href="https://metanit.com/go/">Go</a></li>
+   <li><a href="https://metanit.com/visualbasic/">VB.NET</a></li>
+   <li><a href="https://metanit.com/swift/tutorial/">Swift</a></li>
+   <li><a href="https://metanit.com/kotlin/">Kotlin</a></li>
+   <li><a href="https://metanit.com/dart/">Dart</a></li>
+   <li><a href="https://metanit.com/php/">PHP</a></li>
+   <li><a href="https://metanit.com/rust/">Rust</a></li>
+   <li><a href="https://metanit.com/os/">Linux</a></li>
+   <li><a href="https://metanit.com/f/">F#</a></li>
+   <!--<li><a href="//metanit.com/lisp/tutorial/">Common Lisp</a></li>-->
+   <li><a href="https://metanit.com/hosting">Хостинг</a></li>
+</ul>
+</div>
+
+</header>
+<div class="outercontainer">
+<div class="innercontainer">
+ 
+   <div class="item center menC">
+     <h1>Работа с базой данных через SQLAlchemy</h1><h2>Подключение к базе данных и создание таблиц</h2><div class="date">Последнее обновление: 15.04.2024</div>
+	<div class="socBlock">
+	<div class="share soctop">
+	<ul>
+	<li><a title="Поделиться в Вконтакте" rel="nofollow" class="fa fa-lg fa-vk"></a></li>
+	<li><a title="Поделиться в Телеграм" rel="nofollow" class="fa fa-lg fa-telegram"></a></li>
+	<li><a title="Поделиться в Одноклассниках" rel="nofollow" class="fa fa-lg fa-odnoklassniki"></a></li>
+	
+	</ul>
+	</div>
+	</div>
+
+	<div style="margin-top:23px;margin-left:5px;">
+		
+		<style>
+		#yandex_rtb_R-A-201190-1 { width: 100%; height: 250px; overflow:hidden;}
+		@media(min-width: 760px) { #yandex_rtb_R-A-201190-1 { max-width: 728px; height: 90px;  } }
+		@media(min-width: 900px) { #yandex_rtb_R-A-201190-1 { max-width: 468px; height: 90px;  } }
+		@media(min-width: 1100px) { #yandex_rtb_R-A-201190-1{ max-width: 728px; height: 90px;} }
+		@media(min-width: 1400px) { #yandex_rtb_R-A-201190-1 { max-width: 970px; height: 90px;} }
+		</style>
+		<div id="yandex_rtb_R-A-201190-1"></div>
+	</div>
+
+	<p>FastAPI поддерживает работу с самыми разными системами баз данных: PostgreSQL, MySQL, SQLite, Oracle, Microsoft SQL Server и т.д. Причем мы не ограничены только реалиционными базами данных и  равным 
+образом использовать и нереляционные, так называемые NoSQL-системы баз данных.</p>
+<p>При работе с базами данных самым простым решением является использование специальных инструментов - <span class="b">ORM</span> (Object Relational Mapper), которые позволяют абстрагироваться 
+от строения базы данных в конкретной СУБД и позволяет автоматически связать сущности в коде Python с таблицами в базе данных. В FastAPI наиболее распространным ORM-инструментом является 
+<span class="b">SQLAlchemy ORM</span></p>
+<p>Рассмотрим работу с базой данных через <span class="b">SQLAlchemy ORM</span> на примере SQLite, поскольку SQLite не требует установки сервера или каких-то дополнительных инструментов. 
+Кроме того, перейти от одной СУБД к другой не составить особого труда и почти не потребует изменения кода взаимодействия с БД, за исключением пары строк кода.</p>
+<p>Прежде всего нам надо установить сам SQLAlchemy с помощью команды</p>
+<div class="console"><pre class="consoletext">pip install sqlalchemy</pre></div>
+<h3>Определение строки подключения к БД</h3>
+<p>Прежде всего для подключения к базе данных необходима строка подключения, которая включает адрес базы данных и другие различные параметры, необходимые для подключения. Для 
+разных СУБД строка подключения может отличаться. Пример строки подключения к SQLite:</p>
+<pre class="brush:py;">
+# строка подключения
+SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db"
+</pre> 
+<p>Для sqlite строка подключения начинается с <code>sqlite://</code>, затем идет относительный или абсолютный путь к файлу:</p>
+<pre class="brush:py;">
+ sqlite:///относительный_путь/file.db
+ sqlite:////абсолютный_путь/file.db
+</pre>
+<p>В данном случае это "./sql_app.db", который указывает, что файл базы данных будет называться 
+"sql_app.db" и будет располагаться в текущей папке.</p>
+<p>В зависимости от конкретной субд строка подключения будет различаться. Так, если бы мы подключись бы к базе данных PostgreSQL, то строка подключения имела бы следующий формат:</p>
+<pre class="brush:py;">SQLALCHEMY_DATABASE_URL = "postgresql://user:password@postgresserver/db"</pre>
+<p>где <code>user</code> - имя пользователя на сервере PostgreSQL, <code>password</code> - пароль, <code>postgresserver</code> - адрес сервера, а <code>db</code> - имя базы данных на сервере.</p>
+<p>При подключении к другим системам баз данных по сути это единственная строка кода, которая потребует изменения.</p>
+<h3>Определение движка</h3>
+<p>После определения строки подключения создается движок SQLAlchemy с помощью функции <span class="b">create_engine()</span>:</p>
+<pre class="brush:py;">
+from sqlalchemy import create_engine
+
+SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db"
+
+# создание движка
+engine = create_engine(
+    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
+)
+</pre>
+<p>Первый параметр функции указывает на строку подключения - то есть по сути базу данных, к которой идет подключение.</p>
+<p>Второй параметр - дополнительные параметры подключения в виде словаря <code>connect_args</code>. В частности, элемент <code>"check_same_thread": False</code> предназначен только 
+для SQLite и указывает, что для взаимодействия с базой данных SQLite в рамках одного запроса может использоваться больше одного потока. Зачем это надо? 
+По умолчанию SQLite разрешает взаимодействовать с БД только одному потоку, чтобы один поток обрабатывал отдельный запрос, что позволяет предотвратить использование одного потока для разных запросов. 
+Но в FastAPI в рамках одного и того же запроса с базой данных могут взаимодействовать более одного потока. Собственно поэтому необходима подобная настройка для получения необходимых разрешений. 
+При этом каждый запрос будет получать свой собственный сеанс подключения к базе данных через механизм внедрения зависимостей, поэтому в механизме по умолчанию нет необходимости.</p>
+<p>При работе с другими СУБД достаточно указать только адрес подключения:</p>
+<pre class="brush:py;">
+engine = create_engine(SQLALCHEMY_DATABASE_URL)
+</pre>
+<h3>Определение моделей</h3>
+<p>Модели представляют классы, которые соответствуют определению таблиц в базе данных и объекты которых хранятся в этих таблицах. И одним из преимуществ SQLAlchemy является то, что мы 
+можем работать таблицами через эти модели-классы языка Python, не прибегая к созданию запросов на языке SQL.</p>
+<p>Для создания моделей необходима базовая модель, от которой потом наследуются остальные модели. Для создания базовой модели можно использовать различные способы, но самый короткий - 
+создания класса модели с помощью функции <span class="b">declarative_base()</span>:</p>
+<pre class="brush:py;">
+from sqlalchemy.orm import DeclarativeBase
+ 
+class Base(DeclarativeBase): pass
+</pre>
+<p>То есть в данном случае определяется класс Base - базовая модель. Затем уже можно определить конкретные модели, данные которых будут храниться в БД. Например:</p>
+<pre class="brush:py;">
+from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy import  Column, Integer, String
+
+class Base(DeclarativeBase): pass
+
+class Person(Base):
+    __tablename__ = "people"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String)
+    age = Column(Integer,)
+
+</pre>
+<p>Здесь определена модель Person, которая представляет пользователя. Она наследуется от Base и определяет ряд атрибутов.</p>
+<p>Атрибут <span class="b">__tablename__</span> хранит имя таблицы, с которой будет сопоставляться текущая модель. То есть данные класса Person будут храниться в таблице "people".</p>
+<p>Для хранения данных в классе модели определяются атрибуты, которые сопоставляются со столбцами таблицы. Такие атрибуты в качестве значения получаются объект <span class="b">Column</span>. 
+В данном случае класс Person определяет три таких атрибута: id, name и age, для которых в таблице people будут создаваться одноименные столбцы.</p>
+<p>Класс Column с помощью параметров конструктора определяет настройки столбца в таблицы. Здесь в конструктор вначале передается тип столбца. Так, у id и age тип столбца - <code>Integer</code>, 
+то есть целое число. А столбец <code>name</code> представляет тип String, то есть строку.</p>
+<p>Кроме того, в конструктор можно передать ряд дополнительных параметров. Так, для столбца id передаются параметры <code>primary_key</code> и <code>index</code>. Значение 
+<code>primary_key=True</code> указывает, что данный столбец будет представлять первичный ключ. А параметр <code>index=True</code> говорит, что для данного столбца будет создаваться индекс.</p>
+<h3>Создание базы данных и таблиц</h3>
+<p>Для создания базы данных и таблиц по метаданным моделей применяется метод <code>Base.metadata.create_all()</code>. Его ключевой параметр - <code>bind</code> принимает класс, 
+который используется для подключения к базе данных. В качестве такого класса применяется созданный ранее движок SQLAlchemy. Если база данных и все необходимые таблицы уже имеются, то метод не создает заново таблицы.</p>
+<p>Посмотрим на простейшем примере. Все объединим и определим в файле приложения следующий код:</p>
+<pre class="brush:py;">
+from sqlalchemy import create_engine
+from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy import  Column, Integer, String
+
+from fastapi import FastAPI
+
+# строка подключения
+SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db"
+
+# создаем движок SqlAlchemy
+engine = create_engine(
+    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
+)
+#создаем базовый класс для моделей
+class Base(DeclarativeBase): pass
+
+# создаем модель, объекты которой будут храниться в бд
+class Person(Base):
+    __tablename__ = "people"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String)
+    age = Column(Integer,)
+
+# создаем таблицы
+Base.metadata.create_all(bind=engine)
+
+# приложение, которое ничего не делает
+app = FastAPI()
+</pre>
+<p>После запуска приложения в папке проекта будет создана таблица sql_app.db:</p>
+<img src="pics/2.1.png" alt="Подключение к базе данных Sqlite и создание таблиц через SqlAlchemy в FastAPI и Python" />
+<p>Мы можем открыть эту базу данных с помощью любой программы для просмотра баз данных sqlite 
+(например, с помощью <a href="https://sqlitebrowser.org/" rel="nofollow">DB Browser for SQLite</a>) и увидеть содержимое бд:</p>
+<img src="pics/2.2.png" alt="Подключение к базе данных Sqlite и создание таблиц через SqlAlchemy в FastAPI" />
+
+	
+
+	<div style="margin-top:25px;">
+<style>
+	#yandex_rtb_R-A-201190-3{ width: 100%; height: 300px;overflow:hidden; }
+	
+	@media(min-width: 760px) { #yandex_rtb_R-A-201190-3{ max-width: 728px;  } }
+	@media(min-width: 900px) { #yandex_rtb_R-A-201190-3{ max-width: 336px; } }
+	@media(min-width: 1100px) { #yandex_rtb_R-A-201190-3{ max-width: 728px; } }
+	@media(min-width: 1400px) { #yandex_rtb_R-A-201190-3{ max-width: 970px;} }
+	</style>
+	<div id="yandex_rtb_R-A-201190-3"></div>
+	</div>
+
+	<div class="nav"><p><a href="1.15.php.html">Назад</a><a href="index.html">Содержание</a><a href="2.2.php.html">Вперед</a></p></div>
+	<div class="socBlock">
+	<div class="share soctop">
+	<ul>
+	<li><a title="Поделиться в Вконтакте" rel="nofollow" class="fa fa-lg fa-vk"></a></li>
+	<li><a title="Поделиться в Телеграм" rel="nofollow" class="fa fa-lg fa-telegram"></a></li>
+	<li><a title="Поделиться в Одноклассниках" rel="nofollow" class="fa fa-lg fa-odnoklassniki"></a></li>
+	
+	</ul>
+	</div>
+	</div>
+  </div>
+
+	<div class="item left">
+     <ul id="browser" class="filetree"> 
+	<li class="closed"><span class="folder">Глава 1. основы FastAPI</span>
+		<ul>
+			<li><span class="file"><a href="1.1.php.html">Что такое FastAPI</a></span></li>
+			<li><span class="file"><a href="1.2.php.html">Класс FastAPI и обработка запроса</a></span></li>
+			<li><span class="file"><a href="1.3.php.html">Отправка ответа</a></span></li>
+			<li><span class="file"><a href="1.4.php.html">Отправка файлов с сервера</a></span></li>
+			<li><span class="file"><a href="1.5.php.html">Параметры пути</a></span></li>
+			<li><span class="file"><a href="1.6.php.html">Параметры строки запроса</a></span></li>
+			<li><span class="file"><a href="1.7.php.html">Отправка статусных кодов</a></span></li>
+			<li><span class="file"><a href="1.8.php.html">Переадресация</a></span></li>
+			<li><span class="file"><a href="1.9.php.html">Статические файлы</a></span></li>
+			<li><span class="file"><a href="1.10.php.html">Получение данных запроса</a></span></li>
+			<li><span class="file"><a href="1.11.php.html">Получение данных запроса в виде объекта класса</a></span></li>
+			<li><span class="file"><a href="1.12.php.html">Создание простейшего API</a></span></li>
+			<li><span class="file"><a href="1.13.php.html">Отправка и получение заголовков</a></span></li>
+			<li><span class="file"><a href="1.14.php.html">Куки</a></span></li>
+			<li><span class="file"><a href="1.15.php.html">Отправка форм</a></span></li>
+		</ul>
+	</li>
+	<li class="closed"><span class="folder">Глава 2. Работа с базой данных через SQLAlchemy</span>
+		<ul>
+			<li><span class="file"><a href="2.1.php.html">Подключение к базе данных и создание таблиц</a></span></li>
+			<li><span class="file"><a href="2.2.php.html">Взаимодействие с базой данных</a></span></li>
+			<li><span class="file"><a href="2.3.php.html">Базовые операции с базой данных в веб-приложении</a></span></li>
+		</ul>
+	</li>
+</ul>   </div>
+</div>
+
+  <div class="item right">
+<div class="help" style="border: 0px;">
+    
+	<div class="help-item">
+		<div class="help-item-name"><a href="https://metanit.com/settings.php">Настройки</a></div>
+	 </div>
+</div>
+			<div class="help">
+
+      <div class="help-header">Помощь сайту</div>
+
+       <div class="help-item">
+		<div class="help-item-name"><a href="https://yoomoney.ru/to/410011174743222" rel="nofollow">Помощь сайту</a></div>
+	 </div>
+       
+      <div class="help-item">
+		<div class="help-item-name">Юмани:</div>
+		<div class="help-item-req">410011174743222</div>
+	 </div>
+
+		<div class="help-item">
+			<div class="help-item-name">Номер карты:</div>
+			<div class="help-item-req">4048415020898850</div>
+		</div>
+
+      </div>
+
+	<style>
+	#yandex_rtb_R-A-201190-7 { width: 100%; height: 300px;  margin-top:10px;}
+	@media(min-width: 500px) { #yandex_rtb_R-A-201190-7{ width: 336px;} }
+	@media(min-width: 900px) { #yandex_rtb_R-A-201190-7 { width: 160px; height: 600px; position: sticky; top: 10px;} }
+	@media(min-width: 1300px) { #yandex_rtb_R-A-201190-7 { width: 300px; height: 600px; } }
+	</style>
+	<div id="yandex_rtb_R-A-201190-7"></div>
+
+
+
+
+  </div>
+</div>
+
+<div id="footer" style="padding-bottom:85px;">
+
+<div class="bootomLinks">
+<a href="https://vk.com/metanit" title="Присоединиться к группе вконтакте" rel="nofollow">
+Вконтакте</a>|
+ <a href="https://t.me/devnull22" title="Подписаться на телеграм" rel="nofollow">
+Телеграм</a> | 
+<a href="https://metanit.com/donations.php" rel="nofollow">Донаты/Помощь сайту</a>
+</div>
+<p>Contacts: metanit22@mail.ru</p>
+<p>Copyright &copy; Евгений Попов, metanit.com, 2026. Все права защищены.</p>
+
+
+</div>
+
+</div>
+
+<script>window.yaContextCb=window.yaContextCb||[]</script>
+<script src="https://yandex.ru/ads/system/context.js" async></script>
+
+<script>window.yaContextCb.push(()=>{
+  Ya.Context.AdvManager.render({
+    renderTo: 'yandex_rtb_R-A-201190-1',
+    blockId: 'R-A-201190-1'
+  })
+});
+window.yaContextCb.push(()=>{
+  Ya.Context.AdvManager.render({
+    renderTo: 'yandex_rtb_R-A-201190-3',
+    blockId: 'R-A-201190-3'
+  })
+});
+window.yaContextCb.push(()=>{
+  Ya.Context.AdvManager.render({
+    renderTo: 'yandex_rtb_R-A-201190-7',
+    blockId: 'R-A-201190-7'
+  })
+});
+if(document.getElementById("yandex_rtb_R-A-201190-8")){
+window.yaContextCb.push(()=>{
+  Ya.Context.AdvManager.render({
+    renderTo: 'yandex_rtb_R-A-201190-8',
+    blockId: 'R-A-201190-8'
+  })
+});
+}
+if(document.getElementById("yandex_rtb_R-A-201190-9")){
+window.yaContextCb.push(() => {
+    Ya.Context.AdvManager.render({
+        "blockId": "R-A-201190-9",
+        "renderTo": "yandex_rtb_R-A-201190-9"
+    })
+});
+}</script>
+
+
+<script src='syntax16.js'></script>
+<script>
+SyntaxHighlighter.all();
+document.addEventListener('copy', (ev) => {
+const et = event.target;if(et.type==="textarea"){ev.clipboardData.setData('text/plain',et.value.substring(et.selectionStart,et.selectionEnd).replace(/\u00A0/g, " "));ev.preventDefault();}
+});
+console.log("Copyright © Евгений Попов, metani" + "t.com, 2026. Все права защищены.");
+</script>
+<script>
+
+window.yaContextCb.push(() => {
+      if (Ya.Context.AdvManager.getPlatform() === 'desktop') {
+        Ya.Context.AdvManager.render({
+			"blockId": "R-A-201190-11",
+			"type": "floorAd",
+			"platform": "desktop"
+		});
+      } else {
+        Ya.Context.AdvManager.render({
+			"blockId": "R-A-201190-12",
+			"type": "floorAd",
+			"platform": "touch"
+		});
+      }
+  });
+
+
+document.querySelector(".fa-bars").addEventListener("click", ()=>{ 
+		const tree = document.querySelector(".item.left");
+		const display = tree.style.display;
+		if(display=="block") tree.style.display = "none";
+		else tree.style.display = "block";
+});
+
+const menuButton = document.getElementById("menuButton");
+document.getElementById("menuButton").addEventListener("click", ()=>{ 
+		menuButton.classList.toggle("menu-opened");
+		document.querySelector(".mainmenu").classList.toggle("open");
+});
+
+
+document.getElementById("magnifying-glass").addEventListener("click", ()=> 
+	document.getElementById("search").classList.toggle("transp")
+);
+
+document.getElementById("toggle-theme").addEventListener("click", ()=>{
+		if(document.documentElement.hasAttribute("theme")){
+			document.documentElement.removeAttribute("theme");
+			document.cookie="theme=1;expires=Mon, 19 Feb 2001 12:00:00 UTC;path=/;";
+		}
+		else{
+			document.documentElement.setAttribute("theme", "dark");
+			var expire = new Date();
+			expire.setHours(expire.getHours() + 7);
+			document.cookie="theme=1;expires=" + expire.toUTCString() + ";path=/;";
+		}
+	});
+
+
+
+
+document.querySelectorAll(".share .fa-vk").forEach(e => e.addEventListener("click", ()=> window.open("http://vk.com/share.php?url=" + window.location.href,"Поделиться в ВКОНТАКТЕ")));
+document.querySelectorAll(".share .fa-telegram").forEach(e => e.addEventListener("click", ()=> window.open("tg://msg_url/url=" + window.location.href,"Поделиться в Telegram")));
+document.querySelectorAll(".share .fa-odnoklassniki").forEach(e => e.addEventListener("click", ()=>window.open("https://connect.ok.ru/offer?url=" + window.location.href,"Поделиться в Одноклассниках")));
+
+const folders = document.getElementsByClassName("closed");
+for (let i = 0; i < folders.length; i++) {
+  folders[i].addEventListener("click", function() {
+
+    this.classList.toggle("closed");
+    this.classList.toggle("opened");
+  });
+}
+
+const activeItem = document.querySelector(".file a[href='//metanit.com" + location.pathname + "']");
+if(activeItem){
+activeItem.classList.add("aMItem");
+activeItem.parentElement.classList.add("aMItem");
+const activeFolder = activeItem.closest("li.closed");
+activeFolder.classList.toggle("closed");
+activeFolder.classList.toggle("opened");
+activeFolder.querySelector(".folder")?.classList.add("aMItem");
+}
+
+const props = ["--main-font-size", "--main-font-family", "--menc-bg-color", "--container-bg-color", "--menu-bg-color", "--code-font-size", "--code-font-family", "--code-bgcolor", "--code-max-height"];
+for(let i = 0; i < props.length; i++){
+    
+	const propValue = localStorage.getItem(props[i]);
+	if(propValue!==null)document.documentElement.style.setProperty(props[i], propValue);
+}
+</script>
+
+
+<script async defer type="text/javascript" src="https://www.google.ru/coop/cse/brand?form=cse-search-box&amp;lang=ru"></script>
+</body>
+</html>

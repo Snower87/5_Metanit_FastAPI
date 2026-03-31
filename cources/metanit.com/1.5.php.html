@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html  lang="ru">
+<head>
+<title>Python и FastAPI | Параметры пути</title>
+<meta charset="utf-8" />
+<meta name="description" content="Параметры пути в веб-приложении на FastAPI и языке программирования Python, класс Path, валидация параметров">
+<meta name="viewport" content="width=device-width">
+<link href="style50.css@v=1.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div id="container">
+<header>
+<div id="header">
+<div id="logo">
+<a class="logoTitle" href="https://metanit.com/" title="На главную">METANIT.COM</a>
+<div class="logoDefinition">Сайт о программировании</div> 
+</div>
+
+<div class="socbtns">
+<ul>
+<li><a title="Посмотреть меню" rel="nofollow" class="fa fa-lg fa-bars"></a></li>
+<li><a href="https://metanit.com/donations.php" title="Помощь сайту" rel="nofollow" style="color: var(--fa-usd-color);" class="fa fa-lg fa-usd"></a></li>
+<li><a href="https://vk.com/metanit" title="Группа в ВКонтакте" rel="nofollow" style="color: var(--fa-vk-color);" class="fa fa-lg fa-vk"></a></li>
+<li><a href="https://t.me/devnull22" title="Группа в Телеграмме"  class="fa fa-lg fa-tel" style="color: var(--fa-tel-color);"></a></li>
+<li><a href="https://metanit.com/android.php" title="Приложения андроид" rel="nofollow" style="color: var(--fa-android-color);" class="fa fa-lg fa-android"></a></li>
+<li><i id="toggle-theme" class="fa fa-lg fa-adjust"></i></li>
+</ul>
+</div>
+
+
+<div id="magnifying-glass"></div>
+
+<div class="menuButton" id="menuButton">
+	<span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+</div>
+</div>
+
+<div id="search" class="transp">
+<form action="https://www.google.ru" id="cse-search-box">
+  <div>
+    <input type="hidden" name="cx" value="partner-pub-3716042175333627:1096498938" />
+    <input type="hidden" name="ie" value="UTF-8" />
+    <input type="text" name="q" />
+    <input type="submit" name="sa" value="Найти" />
+  </div>
+</form>
+</div>
+
+<div id="menu" class="menu">
+<ul class="mainmenu">
+    <li><a href="https://metanit.com/common/">Программирование</a></li>
+    <li><a href="https://metanit.com/assembler/">Ассемблер</a></li>
+   <li><a href="https://metanit.com/sharp/">C#</a></li>
+   <li><a href="https://metanit.com/java/">Java</a></li>
+   <li><a href="https://metanit.com/web/">WEB</a></li>
+   <li><a href="https://metanit.com/python/">Python</a></li>
+   <li><a href="https://metanit.com/c/">C</a></li>
+   <li><a href="https://metanit.com/cpp/">C++</a></li>
+   <li><a href="https://metanit.com/sql/">SQL</a></li>
+   <li><a href="https://metanit.com/nosql/mongodb/">MongoDB</a></li>
+   <li><a href="https://metanit.com/go/">Go</a></li>
+   <li><a href="https://metanit.com/visualbasic/">VB.NET</a></li>
+   <li><a href="https://metanit.com/swift/tutorial/">Swift</a></li>
+   <li><a href="https://metanit.com/kotlin/">Kotlin</a></li>
+   <li><a href="https://metanit.com/dart/">Dart</a></li>
+   <li><a href="https://metanit.com/php/">PHP</a></li>
+   <li><a href="https://metanit.com/rust/">Rust</a></li>
+   <li><a href="https://metanit.com/os/">Linux</a></li>
+   <li><a href="https://metanit.com/f/">F#</a></li>
+   <!--<li><a href="//metanit.com/lisp/tutorial/">Common Lisp</a></li>-->
+   <li><a href="https://metanit.com/hosting">Хостинг</a></li>
+</ul>
+</div>
+
+</header>
+<div class="outercontainer">
+<div class="innercontainer">
+ 
+   <div class="item center menC">
+     <h2>Параметры пути</h2><div class="date">Последнее обновление: 06.09.2022</div>
+	<div class="socBlock">
+	<div class="share soctop">
+	<ul>
+	<li><a title="Поделиться в Вконтакте" rel="nofollow" class="fa fa-lg fa-vk"></a></li>
+	<li><a title="Поделиться в Телеграм" rel="nofollow" class="fa fa-lg fa-telegram"></a></li>
+	<li><a title="Поделиться в Одноклассниках" rel="nofollow" class="fa fa-lg fa-odnoklassniki"></a></li>
+	
+	</ul>
+	</div>
+	</div>
+
+	<div style="margin-top:23px;margin-left:5px;">
+		
+		<style>
+		#yandex_rtb_R-A-201190-1 { width: 100%; height: 250px; overflow:hidden;}
+		@media(min-width: 760px) { #yandex_rtb_R-A-201190-1 { max-width: 728px; height: 90px;  } }
+		@media(min-width: 900px) { #yandex_rtb_R-A-201190-1 { max-width: 468px; height: 90px;  } }
+		@media(min-width: 1100px) { #yandex_rtb_R-A-201190-1{ max-width: 728px; height: 90px;} }
+		@media(min-width: 1400px) { #yandex_rtb_R-A-201190-1 { max-width: 970px; height: 90px;} }
+		</style>
+		<div id="yandex_rtb_R-A-201190-1"></div>
+	</div>
+
+	<p>Путь запроса может содержать специальные значения, которые фреймворк FastAPI может связать с параметрыми функции обработчика запроса. Это так называемые параметры пути 
+(path parameter). Благодаря параметрам пути можно передавать в приложения некоторые значения.</p>
+<p>Параметры пути определяются в шаблоне пути внутри фигурных скобок: <code>{название_параметра}</code>. Например, определим следующее приложение:</p>
+<pre class="brush:py;">
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/users/{id}")
+def users(id):
+    return {"user_id": id}
+</pre>
+<p>в данном случае декоратор app.get использует шаблон пути <code>"/users/{id}"</code>. Здесь <span class="b">id</span> представляет параметр пути.</p>
+<p>Функция <code>users()</code>, которая обрабатывает запрос по этому пути, принимает одноименный параметр. Через этот параметр в функцию будет передаваться значения из пути, 
+которое фреймворк определит как параметр id.</p>
+<img src="pics/1.9.png" alt="Параметры пути в веб-приложении на FastAPI и Python" />
+<p>Так, на скриншоте видно, что браузер отправляет запрос по адресу <code>http://127.0.0.1:8000/users/315</code>, то есть путь запроса в данном случае представляет 
+<code>users/315</code>. Фреймворк FastAPI видит, что этот путь соответствует шаблону "/users/{id}", поэтому данный запрос будет обрабатываться функцией users.</p>
+<p>Параметр id в шаблоне пути составляет второй сегмент адреса. Соответственно фреймворк сможет сопоставть сегмент "315" с параметром id. Поэтому при обращении по адресу <code>http://127.0.0.1:8000/users/315</code> 
+параметр id в функции users получит значение 315.</p>
+<p>Подобным образом можно использовать и большее количество параметров:</p>
+<pre class="brush:py;">
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/users/{name}/{age}")
+def users(name, age):
+    return {"user_name": name, "user_age": age}
+</pre>
+<p>В данном случае функция users обрабатывает запросы, путь которых соответствует шаблону "/users/{name}/{age}". Подобный путь должен состоять из трех сегментов, где второй сегмент 
+представляет значение параметра name, а третий сегмент - значение параметра age.</p>
+<img src="pics/1.10.png" alt="Передача параметров в приложении FastAPI на Python" />
+<p>Обычно если в пути передается несколько параметров, то разделителем между ними, как правило, служит слеш, который закрывает сегмент, как в примере выше. Однако это необязательно, например, 
+мы можем разделить параметры с помощью дефиса:</p>
+<pre class="brush:py;">
+@app.get("/users/{name}-{age}")
+def users(name, age):
+    return {"user_name": name, "user_age": age}
+</pre>
+<p>Такому шаблону соответствовал бы запрос по пути <code>http://127.0.0.1:8000/users/Tom-38</code>, и фреймворк FastAPI автоматически распарсил бы запрошенный путь и разделил бы его последний сегмент 
+на параметры name и age.</p>
+<h3>Очередность определения путей</h3>
+<p>Однако при определении шаблонов путей следует учитывать, что между различными шаблонами может возникнуть двойственность, когда запрос соответствует нескольким 
+определенным шаблонам. И в этой связи следует учитывать очередность определения шаблонов путей. Например:</p>
+<pre class="brush:py;">
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/users/{name}")
+def users(name):
+    return {"user_name": name}
+
+
+@app.get("/users/admin")
+def admin():
+    return {"message": "Hello admin"}
+</pre>
+<p>В данном случае мы хотим, чтобы запросы по пути "/users/admin" обрабатывала функция <code>admin()</code>. А остальные пути по шаблону "/users/{name}", где второй сегмент представляет параметр name, 
+обрабатывала бы функция <code>users()</code>. Однако если мы обратимся к приложению с запросом <code>http://127.0.0.1:8000/users/admin</code>, то мы увидим, что запрос 
+обрабатывает функция <code>users()</code>, а не <code>admin()</code>:</p>
+<img src="pics/1.11.png" alt="Очередность определения маршрутов в приложении FastAPI на Python" />
+<p>Потому что функция users определена до функции admin, соответственно функция users и будет обрабатывать данный запрос. Чтобы добиться нужного результата, нам надо поменять определение функций местами:</p>
+<pre class="brush:py;">
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/users/admin")
+def admin():
+    return {"message": "Hello admin"}
+
+
+@app.get("/users/{name}")
+def users(name):
+    return {"user_name": name}
+</pre>
+<h3>Ограничения типа параметров</h3>
+<p>FastAPI позволяет ограничить тип параметров и соответственно набор используемых значений. Например, мы хотим, чтобы параметр id представлял только целое число:</p>
+<pre class="brush:py;">
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/users/{id}")
+def users(id: int):
+    return {"user_id": id}
+</pre>
+<p>Чтобы указать, что параметр - целое число, у параметра функции явным образом задается тип <span class="b">int</span>. И если мы попробуем передать этому параметру не целочисленное значение, 
+то сервер отправит сообщение об ошибке:</p>
+<img src="pics/1.12.png" alt="Ограничение типа параметров пути в FastAPI" />
+<p>Подобным образом в качестве ограничения можно использовать и другие типы: str, float, bool и ряд других.</p>
+<h3>Path</h3>
+<p>Дополнительно для работы с параметрами пути фреймворк FastAPI предоставляет класс <span class="b">Path</span> из пакета <code>fastapi</code>. Класс Path позволяет валидировать 
+значения параметров. В частности, через конструктор Path можно установить следующие параметры для валидации значений:</p>
+<ul>
+<li><p><span class="b">min_length</span>: устанавливает минимальное количество символов в значении параметра</p></li>
+<li><p><span class="b">max_length</span>: устанавливает максимальное количество символов в значении параметра</p></li>
+<li><p><span class="b">pattern</span>: устанавливает регулярное выражение, которому должно соответствовать значение параметра</p></li>
+<li><p><span class="b">lt</span>: значение параметра должно быть меньше определенного значения</p></li>
+<li><p><span class="b">le</span>: значение параметра должно быть меньше или равно определенному значению</p></li>
+<li><p><span class="b">gt</span>: значение параметра должно быть больше определенного значения</p></li>
+<li><p><span class="b">ge</span>: значение параметра должно быть больше или равно определенному значению</p></li>
+</ul> 
+<p>Применим некотрые параметры:</p>
+<pre class="brush:py;">
+from fastapi import FastAPI, Path
+
+app = FastAPI()
+
+@app.get("/users/{name}")
+def users(name:str  = Path(min_length=3, max_length=20)):
+    return {"name": name}
+</pre>
+<p>В данном случае получаем параметр <code>name</code>. Причем его значение должно иметь не меньше 3 и не больше 20 символов.</p>
+<img src="pics/1.17.png" alt="Валидация параметров маршрута в FastAPI" />
+<p>Подобным образом можно использовать другие параметры валидации:</p>
+<pre class="brush:py;">
+from fastapi import FastAPI, Path
+
+app = FastAPI()
+
+@app.get("/users/{name}/{age}")
+def users(name:str  = Path(min_length=3, max_length=20), 
+            age: int = Path(ge=18, lt=111)):
+    return {"name": name, "age": age}
+</pre>
+<p>В данном случае добавляется параметр "age", который должен представлять число в диапазоне от 18 (включительно) до 111 (не включая)</p>
+<p>Валидация с помощью регулярного значения:</p>
+<pre class="brush:py;">
+from fastapi import FastAPI, Path
+
+app = FastAPI()
+
+@app.get("/users/{phone}")
+def users(phone:str  = Path(pattern=r"^\d{11}$")):
+    return {"phone": phone}
+</pre>
+<p>Здесь параметр phone должен состоять из 11 цифр.</p>
+
+	
+
+	<div style="margin-top:25px;">
+<style>
+	#yandex_rtb_R-A-201190-3{ width: 100%; height: 300px;overflow:hidden; }
+	
+	@media(min-width: 760px) { #yandex_rtb_R-A-201190-3{ max-width: 728px;  } }
+	@media(min-width: 900px) { #yandex_rtb_R-A-201190-3{ max-width: 336px; } }
+	@media(min-width: 1100px) { #yandex_rtb_R-A-201190-3{ max-width: 728px; } }
+	@media(min-width: 1400px) { #yandex_rtb_R-A-201190-3{ max-width: 970px;} }
+	</style>
+	<div id="yandex_rtb_R-A-201190-3"></div>
+	</div>
+
+	<div class="nav"><p><a href="1.4.php.html">Назад</a><a href="index.html">Содержание</a><a href="1.6.php.html">Вперед</a></p></div>
+	<div class="socBlock">
+	<div class="share soctop">
+	<ul>
+	<li><a title="Поделиться в Вконтакте" rel="nofollow" class="fa fa-lg fa-vk"></a></li>
+	<li><a title="Поделиться в Телеграм" rel="nofollow" class="fa fa-lg fa-telegram"></a></li>
+	<li><a title="Поделиться в Одноклассниках" rel="nofollow" class="fa fa-lg fa-odnoklassniki"></a></li>
+	
+	</ul>
+	</div>
+	</div>
+  </div>
+
+	<div class="item left">
+     <ul id="browser" class="filetree"> 
+	<li class="closed"><span class="folder">Глава 1. основы FastAPI</span>
+		<ul>
+			<li><span class="file"><a href="1.1.php.html">Что такое FastAPI</a></span></li>
+			<li><span class="file"><a href="1.2.php.html">Класс FastAPI и обработка запроса</a></span></li>
+			<li><span class="file"><a href="1.3.php.html">Отправка ответа</a></span></li>
+			<li><span class="file"><a href="1.4.php.html">Отправка файлов с сервера</a></span></li>
+			<li><span class="file"><a href="1.5.php.html">Параметры пути</a></span></li>
+			<li><span class="file"><a href="1.6.php.html">Параметры строки запроса</a></span></li>
+			<li><span class="file"><a href="1.7.php.html">Отправка статусных кодов</a></span></li>
+			<li><span class="file"><a href="1.8.php.html">Переадресация</a></span></li>
+			<li><span class="file"><a href="1.9.php.html">Статические файлы</a></span></li>
+			<li><span class="file"><a href="1.10.php.html">Получение данных запроса</a></span></li>
+			<li><span class="file"><a href="1.11.php.html">Получение данных запроса в виде объекта класса</a></span></li>
+			<li><span class="file"><a href="1.12.php.html">Создание простейшего API</a></span></li>
+			<li><span class="file"><a href="1.13.php.html">Отправка и получение заголовков</a></span></li>
+			<li><span class="file"><a href="1.14.php.html">Куки</a></span></li>
+			<li><span class="file"><a href="1.15.php.html">Отправка форм</a></span></li>
+		</ul>
+	</li>
+	<li class="closed"><span class="folder">Глава 2. Работа с базой данных через SQLAlchemy</span>
+		<ul>
+			<li><span class="file"><a href="2.1.php.html">Подключение к базе данных и создание таблиц</a></span></li>
+			<li><span class="file"><a href="2.2.php.html">Взаимодействие с базой данных</a></span></li>
+			<li><span class="file"><a href="2.3.php.html">Базовые операции с базой данных в веб-приложении</a></span></li>
+		</ul>
+	</li>
+</ul>   </div>
+</div>
+
+  <div class="item right">
+<div class="help" style="border: 0px;">
+    
+	<div class="help-item">
+		<div class="help-item-name"><a href="https://metanit.com/settings.php">Настройки</a></div>
+	 </div>
+</div>
+			<div class="help">
+
+      <div class="help-header">Помощь сайту</div>
+
+       <div class="help-item">
+		<div class="help-item-name"><a href="https://yoomoney.ru/to/410011174743222" rel="nofollow">Помощь сайту</a></div>
+	 </div>
+       
+      <div class="help-item">
+		<div class="help-item-name">Юмани:</div>
+		<div class="help-item-req">410011174743222</div>
+	 </div>
+
+		<div class="help-item">
+			<div class="help-item-name">Номер карты:</div>
+			<div class="help-item-req">4048415020898850</div>
+		</div>
+
+      </div>
+
+	<style>
+	#yandex_rtb_R-A-201190-7 { width: 100%; height: 300px;  margin-top:10px;}
+	@media(min-width: 500px) { #yandex_rtb_R-A-201190-7{ width: 336px;} }
+	@media(min-width: 900px) { #yandex_rtb_R-A-201190-7 { width: 160px; height: 600px; position: sticky; top: 10px;} }
+	@media(min-width: 1300px) { #yandex_rtb_R-A-201190-7 { width: 300px; height: 600px; } }
+	</style>
+	<div id="yandex_rtb_R-A-201190-7"></div>
+
+
+
+
+  </div>
+</div>
+
+<div id="footer" style="padding-bottom:85px;">
+
+<div class="bootomLinks">
+<a href="https://vk.com/metanit" title="Присоединиться к группе вконтакте" rel="nofollow">
+Вконтакте</a>|
+ <a href="https://t.me/devnull22" title="Подписаться на телеграм" rel="nofollow">
+Телеграм</a> | 
+<a href="https://metanit.com/donations.php" rel="nofollow">Донаты/Помощь сайту</a>
+</div>
+<p>Contacts: metanit22@mail.ru</p>
+<p>Copyright &copy; Евгений Попов, metanit.com, 2026. Все права защищены.</p>
+
+
+</div>
+
+</div>
+
+<script>window.yaContextCb=window.yaContextCb||[]</script>
+<script src="https://yandex.ru/ads/system/context.js" async></script>
+
+<script>window.yaContextCb.push(()=>{
+  Ya.Context.AdvManager.render({
+    renderTo: 'yandex_rtb_R-A-201190-1',
+    blockId: 'R-A-201190-1'
+  })
+});
+window.yaContextCb.push(()=>{
+  Ya.Context.AdvManager.render({
+    renderTo: 'yandex_rtb_R-A-201190-3',
+    blockId: 'R-A-201190-3'
+  })
+});
+window.yaContextCb.push(()=>{
+  Ya.Context.AdvManager.render({
+    renderTo: 'yandex_rtb_R-A-201190-7',
+    blockId: 'R-A-201190-7'
+  })
+});
+if(document.getElementById("yandex_rtb_R-A-201190-8")){
+window.yaContextCb.push(()=>{
+  Ya.Context.AdvManager.render({
+    renderTo: 'yandex_rtb_R-A-201190-8',
+    blockId: 'R-A-201190-8'
+  })
+});
+}
+if(document.getElementById("yandex_rtb_R-A-201190-9")){
+window.yaContextCb.push(() => {
+    Ya.Context.AdvManager.render({
+        "blockId": "R-A-201190-9",
+        "renderTo": "yandex_rtb_R-A-201190-9"
+    })
+});
+}</script>
+
+
+<script src='syntax16.js'></script>
+<script>
+SyntaxHighlighter.all();
+document.addEventListener('copy', (ev) => {
+const et = event.target;if(et.type==="textarea"){ev.clipboardData.setData('text/plain',et.value.substring(et.selectionStart,et.selectionEnd).replace(/\u00A0/g, " "));ev.preventDefault();}
+});
+console.log("Copyright © Евгений Попов, metani" + "t.com, 2026. Все права защищены.");
+</script>
+<script>
+
+window.yaContextCb.push(() => {
+      if (Ya.Context.AdvManager.getPlatform() === 'desktop') {
+        Ya.Context.AdvManager.render({
+			"blockId": "R-A-201190-11",
+			"type": "floorAd",
+			"platform": "desktop"
+		});
+      } else {
+        Ya.Context.AdvManager.render({
+			"blockId": "R-A-201190-12",
+			"type": "floorAd",
+			"platform": "touch"
+		});
+      }
+  });
+
+
+document.querySelector(".fa-bars").addEventListener("click", ()=>{ 
+		const tree = document.querySelector(".item.left");
+		const display = tree.style.display;
+		if(display=="block") tree.style.display = "none";
+		else tree.style.display = "block";
+});
+
+const menuButton = document.getElementById("menuButton");
+document.getElementById("menuButton").addEventListener("click", ()=>{ 
+		menuButton.classList.toggle("menu-opened");
+		document.querySelector(".mainmenu").classList.toggle("open");
+});
+
+
+document.getElementById("magnifying-glass").addEventListener("click", ()=> 
+	document.getElementById("search").classList.toggle("transp")
+);
+
+document.getElementById("toggle-theme").addEventListener("click", ()=>{
+		if(document.documentElement.hasAttribute("theme")){
+			document.documentElement.removeAttribute("theme");
+			document.cookie="theme=1;expires=Mon, 19 Feb 2001 12:00:00 UTC;path=/;";
+		}
+		else{
+			document.documentElement.setAttribute("theme", "dark");
+			var expire = new Date();
+			expire.setHours(expire.getHours() + 7);
+			document.cookie="theme=1;expires=" + expire.toUTCString() + ";path=/;";
+		}
+	});
+
+
+
+
+document.querySelectorAll(".share .fa-vk").forEach(e => e.addEventListener("click", ()=> window.open("http://vk.com/share.php?url=" + window.location.href,"Поделиться в ВКОНТАКТЕ")));
+document.querySelectorAll(".share .fa-telegram").forEach(e => e.addEventListener("click", ()=> window.open("tg://msg_url/url=" + window.location.href,"Поделиться в Telegram")));
+document.querySelectorAll(".share .fa-odnoklassniki").forEach(e => e.addEventListener("click", ()=>window.open("https://connect.ok.ru/offer?url=" + window.location.href,"Поделиться в Одноклассниках")));
+
+const folders = document.getElementsByClassName("closed");
+for (let i = 0; i < folders.length; i++) {
+  folders[i].addEventListener("click", function() {
+
+    this.classList.toggle("closed");
+    this.classList.toggle("opened");
+  });
+}
+
+const activeItem = document.querySelector(".file a[href='//metanit.com" + location.pathname + "']");
+if(activeItem){
+activeItem.classList.add("aMItem");
+activeItem.parentElement.classList.add("aMItem");
+const activeFolder = activeItem.closest("li.closed");
+activeFolder.classList.toggle("closed");
+activeFolder.classList.toggle("opened");
+activeFolder.querySelector(".folder")?.classList.add("aMItem");
+}
+
+const props = ["--main-font-size", "--main-font-family", "--menc-bg-color", "--container-bg-color", "--menu-bg-color", "--code-font-size", "--code-font-family", "--code-bgcolor", "--code-max-height"];
+for(let i = 0; i < props.length; i++){
+    
+	const propValue = localStorage.getItem(props[i]);
+	if(propValue!==null)document.documentElement.style.setProperty(props[i], propValue);
+}
+</script>
+
+
+<script async defer type="text/javascript" src="https://www.google.ru/coop/cse/brand?form=cse-search-box&amp;lang=ru"></script>
+</body>
+</html>

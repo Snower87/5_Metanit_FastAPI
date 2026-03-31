@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html  lang="ru">
+<head>
+<title>Python и FastAPI | Отправка статусных кодов</title>
+<meta charset="utf-8" />
+<meta name="description" content="Отправка статусных кодов в ответе клиенту в веб-приложении на FastAPI и языке программирования Python, параметр status_code и модуль status">
+<meta name="viewport" content="width=device-width">
+<link href="style50.css@v=1.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div id="container">
+<header>
+<div id="header">
+<div id="logo">
+<a class="logoTitle" href="https://metanit.com/" title="На главную">METANIT.COM</a>
+<div class="logoDefinition">Сайт о программировании</div> 
+</div>
+
+<div class="socbtns">
+<ul>
+<li><a title="Посмотреть меню" rel="nofollow" class="fa fa-lg fa-bars"></a></li>
+<li><a href="https://metanit.com/donations.php" title="Помощь сайту" rel="nofollow" style="color: var(--fa-usd-color);" class="fa fa-lg fa-usd"></a></li>
+<li><a href="https://vk.com/metanit" title="Группа в ВКонтакте" rel="nofollow" style="color: var(--fa-vk-color);" class="fa fa-lg fa-vk"></a></li>
+<li><a href="https://t.me/devnull22" title="Группа в Телеграмме"  class="fa fa-lg fa-tel" style="color: var(--fa-tel-color);"></a></li>
+<li><a href="https://metanit.com/android.php" title="Приложения андроид" rel="nofollow" style="color: var(--fa-android-color);" class="fa fa-lg fa-android"></a></li>
+<li><i id="toggle-theme" class="fa fa-lg fa-adjust"></i></li>
+</ul>
+</div>
+
+
+<div id="magnifying-glass"></div>
+
+<div class="menuButton" id="menuButton">
+	<span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+</div>
+</div>
+
+<div id="search" class="transp">
+<form action="https://www.google.ru" id="cse-search-box">
+  <div>
+    <input type="hidden" name="cx" value="partner-pub-3716042175333627:1096498938" />
+    <input type="hidden" name="ie" value="UTF-8" />
+    <input type="text" name="q" />
+    <input type="submit" name="sa" value="Найти" />
+  </div>
+</form>
+</div>
+
+<div id="menu" class="menu">
+<ul class="mainmenu">
+    <li><a href="https://metanit.com/common/">Программирование</a></li>
+    <li><a href="https://metanit.com/assembler/">Ассемблер</a></li>
+   <li><a href="https://metanit.com/sharp/">C#</a></li>
+   <li><a href="https://metanit.com/java/">Java</a></li>
+   <li><a href="https://metanit.com/web/">WEB</a></li>
+   <li><a href="https://metanit.com/python/">Python</a></li>
+   <li><a href="https://metanit.com/c/">C</a></li>
+   <li><a href="https://metanit.com/cpp/">C++</a></li>
+   <li><a href="https://metanit.com/sql/">SQL</a></li>
+   <li><a href="https://metanit.com/nosql/mongodb/">MongoDB</a></li>
+   <li><a href="https://metanit.com/go/">Go</a></li>
+   <li><a href="https://metanit.com/visualbasic/">VB.NET</a></li>
+   <li><a href="https://metanit.com/swift/tutorial/">Swift</a></li>
+   <li><a href="https://metanit.com/kotlin/">Kotlin</a></li>
+   <li><a href="https://metanit.com/dart/">Dart</a></li>
+   <li><a href="https://metanit.com/php/">PHP</a></li>
+   <li><a href="https://metanit.com/rust/">Rust</a></li>
+   <li><a href="https://metanit.com/os/">Linux</a></li>
+   <li><a href="https://metanit.com/f/">F#</a></li>
+   <!--<li><a href="//metanit.com/lisp/tutorial/">Common Lisp</a></li>-->
+   <li><a href="https://metanit.com/hosting">Хостинг</a></li>
+</ul>
+</div>
+
+</header>
+<div class="outercontainer">
+<div class="innercontainer">
+ 
+   <div class="item center menC">
+     <h2>Отправка статусных кодов</h2><div class="date">Последнее обновление: 06.09.2022</div>
+	<div class="socBlock">
+	<div class="share soctop">
+	<ul>
+	<li><a title="Поделиться в Вконтакте" rel="nofollow" class="fa fa-lg fa-vk"></a></li>
+	<li><a title="Поделиться в Телеграм" rel="nofollow" class="fa fa-lg fa-telegram"></a></li>
+	<li><a title="Поделиться в Одноклассниках" rel="nofollow" class="fa fa-lg fa-odnoklassniki"></a></li>
+	
+	</ul>
+	</div>
+	</div>
+
+	<div style="margin-top:23px;margin-left:5px;">
+		
+		<style>
+		#yandex_rtb_R-A-201190-1 { width: 100%; height: 250px; overflow:hidden;}
+		@media(min-width: 760px) { #yandex_rtb_R-A-201190-1 { max-width: 728px; height: 90px;  } }
+		@media(min-width: 900px) { #yandex_rtb_R-A-201190-1 { max-width: 468px; height: 90px;  } }
+		@media(min-width: 1100px) { #yandex_rtb_R-A-201190-1{ max-width: 728px; height: 90px;} }
+		@media(min-width: 1400px) { #yandex_rtb_R-A-201190-1 { max-width: 970px; height: 90px;} }
+		</style>
+		<div id="yandex_rtb_R-A-201190-1"></div>
+	</div>
+
+	<p>Одной из расспространненых задач в веб-приложении является отправка статусных кодов, которые указывают на статус выполнения операции на сервере.</p>
+<ul>
+<li><p><span class="b">1xx</span>: предназначены для информации. Ответ с таким кодом не может иметь содержимого</p></li>
+<li><p><span class="b">2xx</span>: указывает на успешноее выполнение операции</p></li>
+<li><p><span class="b">3xx</span>: предназначены для переадресации</p></li>
+<li><p><span class="b">4xx</span>: предназначены для отправки информации об ошибок клиента</p></li>
+<li><p><span class="b">5xx</span>: предназначены для информации об ошибках сервера</p></li>
+</ul>
+<p> По умолчанию функции обработки отправляют статусный код 200, но при необходимости мы можем отправить любой статусный код. Для этого у методов <code>get()</code>, <code>post()</code>, <code>put()</code>, <code>delete()</code>, <code>options()</code>, <code>head()</code>, <code>patch()</code>, 
+<code>trace()</code> в классе FastAPI применяется параметр <code>status_code</code>, 
+который принимает числовой код статуса HTTP. Например:</p>. 
+<pre class="brush:py;">
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/notfound", status_code=404)
+def notfound():
+    return  {"message": "Resource Not Found"}
+</pre>
+<p>В данном случае при обращении по пути "/notfound" клиенту отправляется статусный код ошибки 404, который говорит о том, что ресурс не найден.</p>
+<img src="pics/1.24.png" alt="Отправка статусных кодов в FastAPI и Python" />
+<p>Для упрощения в FastAPI есть модуль <span class="b">status</span>, в котором определены константы для представления статусных кодов:</p>
+<ul>
+<li><p><code>HTTP_100_CONTINUE</code> (код 100)</p></li>
+<li><p><code>HTTP_101_SWITCHING_PROTOCOLS</code> (код 101)</p></li>
+<li><p><code>HTTP_102_PROCESSING</code> (код 102)</p></li>
+<li><p><code>HTTP_103_EARLY_HINTS</code> (код 103)</p></li>
+<li><p><code>HTTP_200_OK</code> (код 200)</p></li>
+<li><p><code>HTTP_201_CREATED</code> (код 201)</p></li>
+<li><p><code>HTTP_202_ACCEPTED</code> (код 202)</p></li>
+<li><p><code>HTTP_203_NON_AUTHORITATIVE_INFORMATION</code> (код 203)</p></li>
+<li><p><code>HTTP_204_NO_CONTENT</code> (код 204)</p></li>
+<li><p><code>HTTP_205_RESET_CONTENT</code> (код 205)</p></li>
+<li><p><code>HTTP_206_PARTIAL_CONTENT</code> (код 206)</p></li>
+<li><p><code>HTTP_207_MULTI_STATUS</code> (код 207)</p></li>
+<li><p><code>HTTP_208_ALREADY_REPORTED</code> (код 208)</p></li>
+<li><p><code>HTTP_226_IM_USED</code> (код 226)</p></li>
+<li><p><code>HTTP_300_MULTIPLE_CHOICES</code> (код 300)</p></li>
+<li><p><code>HTTP_301_MOVED_PERMANENTLY</code> (код 301)</p></li>
+<li><p><code>HTTP_302_FOUND</code> (код 302)</p></li>
+<li><p><code>HTTP_303_SEE_OTHER</code> (код 303)</p></li>
+<li><p><code>HTTP_304_NOT_MODIFIED</code> (код 304)</p></li>
+<li><p><code>HTTP_305_USE_PROXY</code> (код 305)</p></li>
+<li><p><code>HTTP_306_RESERVED</code> (код 306)</p></li>
+<li><p><code>HTTP_307_TEMPORARY_REDIRECT</code> (код 307)</p></li>
+<li><p><code>HTTP_308_PERMANENT_REDIRECT</code> (код 308)</p></li>
+<li><p><code>HTTP_400_BAD_REQUEST</code> (код 400)</p></li>
+<li><p><code>HTTP_401_UNAUTHORIZED</code> (код 401)</p></li>
+<li><p><code>HTTP_402_PAYMENT_REQUIRED</code> (код 402)</p></li>
+<li><p><code>HTTP_403_FORBIDDEN</code> (код 403)</p></li>
+<li><p><code>HTTP_404_NOT_FOUND</code> (код 404)</p></li>
+<li><p><code>HTTP_405_METHOD_NOT_ALLOWED</code> (код 405)</p></li>
+<li><p><code>HTTP_406_NOT_ACCEPTABLE</code> (код 406)</p></li>
+<li><p><code>HTTP_407_PROXY_AUTHENTICATION_REQUIRED</code> (код 407)</p></li>
+<li><p><code>HTTP_408_REQUEST_TIMEOUT</code> (код 408)</p></li>
+<li><p><code>HTTP_409_CONFLICT</code> (код 409)</p></li>
+<li><p><code>HTTP_410_GONE</code> (код 410)</p></li>
+<li><p><code>HTTP_411_LENGTH_REQUIRED</code> (код 411)</p></li>
+<li><p><code>HTTP_412_PRECONDITION_FAILED</code> (код 412)</p></li>
+<li><p><code>HTTP_413_REQUEST_ENTITY_TOO_LARGE</code> (код 413)</p></li>
+<li><p><code>HTTP_414_REQUEST_URI_TOO_LONG</code> (код 414)</p></li>
+<li><p><code>HTTP_415_UNSUPPORTED_MEDIA_TYPE</code> (код 415)</p></li>
+<li><p><code>HTTP_416_REQUESTED_RANGE_NOT_SATISFIABLE</code> (код 416)</p></li>
+<li><p><code>HTTP_417_EXPECTATION_FAILED</code> (код 417)</p></li>
+<li><p><code>HTTP_418_IM_A_TEAPOT</code> (код 418)</p></li>
+<li><p><code>HTTP_421_MISDIRECTED_REQUEST</code> (код 421)</p></li>
+<li><p><code>HTTP_422_UNPROCESSABLE_ENTITY</code> (код 422)</p></li>
+<li><p><code>HTTP_423_LOCKED</code> (код 423)</p></li>
+<li><p><code>HTTP_424_FAILED_DEPENDENCY</code> (код 424)</p></li>
+<li><p><code>HTTP_425_TOO_EARLY</code> (код 425)</p></li>
+<li><p><code>HTTP_426_UPGRADE_REQUIRED</code> (код 426)</p></li>
+<li><p><code>HTTP_428_PRECONDITION_REQUIRED</code> (код 428)</p></li>
+<li><p><code>HTTP_429_TOO_MANY_REQUESTS</code> (код 429)</p></li>
+<li><p><code>HTTP_431_REQUEST_HEADER_FIELDS_TOO_LARGE</code> (код 431)</p></li>
+<li><p><code>HTTP_451_UNAVAILABLE_FOR_LEGAL_REASONS</code> (код 451)</p></li>
+<li><p><code>HTTP_500_INTERNAL_SERVER_ERROR</code> (код 500)</p></li>
+<li><p><code>HTTP_501_NOT_IMPLEMENTED</code> (код 501)</p></li>
+<li><p><code>HTTP_502_BAD_GATEWAY</code> (код 502)</p></li>
+<li><p><code>HTTP_503_SERVICE_UNAVAILABLE</code> (код 503)</p></li>
+<li><p><code>HTTP_504_GATEWAY_TIMEOUT</code> (код 504)</p></li>
+<li><p><code>HTTP_505_HTTP_VERSION_NOT_SUPPORTED</code> (код 505)</p></li>
+<li><p><code>HTTP_506_VARIANT_ALSO_NEGOTIATES</code> (код 506)</p></li>
+<li><p><code>HTTP_507_INSUFFICIENT_STORAGE</code> (код 507)</p></li>
+<li><p><code>HTTP_508_LOOP_DETECTED</code> (код 508)</p></li>
+<li><p><code>HTTP_510_NOT_EXTENDED</code> (код 510)</p></li>
+<li><p><code>HTTP_511_NETWORK_AUTHENTICATION_REQUIRED</code> (код 511)</p></li>
+</ul>
+<p>Пример использования</p>
+<pre class="brush:py;">
+from fastapi import FastAPI, status
+
+app = FastAPI()
+
+@app.get("/notfound", status_code=status.HTTP_404_NOT_FOUND)
+def notfound():
+    return  {"message": "Resource Not Found"}
+</pre>
+<h3>Определение статусного кода в ответе</h3>
+<p>В примере выше функция вне зависимости от данных запроса или каких-то других условий в любом случае возвращала статусный код 404. Однако чаще бывает необходимо возвращать статусный код в 
+зависимости от некоторых условий. В этом случае мы можем использовать параметр <span class="b">status_code</span> конструктора класса <span class="b">Response</span> или его наследников:</p>
+<pre class="brush:py;">
+from fastapi import FastAPI
+from fastapi.responses import JSONResponse
+
+app = FastAPI()
+
+@app.get("/notfound")
+def notfound():
+    return JSONResponse(content={"message": "Resource Not Found"}, status_code=404)
+</pre>
+
+<h3>Изменение статусного кода</h3>
+<p>Можно комбинировать оба подхода:</p>
+<pre class="brush:py;">
+from fastapi import FastAPI, Response, Path
+
+app = FastAPI()
+
+@app.get("/users/{id}", status_code=200)
+def users(response: Response, id: int = Path()):
+    if id &lt; 1:
+        response.status_code = 400
+        return {"message": "Incorrect Data"}
+    return  {"message": f"Id = {id}"}
+</pre>
+<p>В данном случае если параметр пути меньше 1, то условно считаем, что переданные некорректные данные, и отправляем в ответ статусный код 400 (Bad Request)</p>
+
+	
+
+	<div style="margin-top:25px;">
+<style>
+	#yandex_rtb_R-A-201190-3{ width: 100%; height: 300px;overflow:hidden; }
+	
+	@media(min-width: 760px) { #yandex_rtb_R-A-201190-3{ max-width: 728px;  } }
+	@media(min-width: 900px) { #yandex_rtb_R-A-201190-3{ max-width: 336px; } }
+	@media(min-width: 1100px) { #yandex_rtb_R-A-201190-3{ max-width: 728px; } }
+	@media(min-width: 1400px) { #yandex_rtb_R-A-201190-3{ max-width: 970px;} }
+	</style>
+	<div id="yandex_rtb_R-A-201190-3"></div>
+	</div>
+
+	<div class="nav"><p><a href="1.6.php.html">Назад</a><a href="index.html">Содержание</a><a href="1.8.php.html">Вперед</a></p></div>
+	<div class="socBlock">
+	<div class="share soctop">
+	<ul>
+	<li><a title="Поделиться в Вконтакте" rel="nofollow" class="fa fa-lg fa-vk"></a></li>
+	<li><a title="Поделиться в Телеграм" rel="nofollow" class="fa fa-lg fa-telegram"></a></li>
+	<li><a title="Поделиться в Одноклассниках" rel="nofollow" class="fa fa-lg fa-odnoklassniki"></a></li>
+	
+	</ul>
+	</div>
+	</div>
+  </div>
+
+	<div class="item left">
+     <ul id="browser" class="filetree"> 
+	<li class="closed"><span class="folder">Глава 1. основы FastAPI</span>
+		<ul>
+			<li><span class="file"><a href="1.1.php.html">Что такое FastAPI</a></span></li>
+			<li><span class="file"><a href="1.2.php.html">Класс FastAPI и обработка запроса</a></span></li>
+			<li><span class="file"><a href="1.3.php.html">Отправка ответа</a></span></li>
+			<li><span class="file"><a href="1.4.php.html">Отправка файлов с сервера</a></span></li>
+			<li><span class="file"><a href="1.5.php.html">Параметры пути</a></span></li>
+			<li><span class="file"><a href="1.6.php.html">Параметры строки запроса</a></span></li>
+			<li><span class="file"><a href="1.7.php.html">Отправка статусных кодов</a></span></li>
+			<li><span class="file"><a href="1.8.php.html">Переадресация</a></span></li>
+			<li><span class="file"><a href="1.9.php.html">Статические файлы</a></span></li>
+			<li><span class="file"><a href="1.10.php.html">Получение данных запроса</a></span></li>
+			<li><span class="file"><a href="1.11.php.html">Получение данных запроса в виде объекта класса</a></span></li>
+			<li><span class="file"><a href="1.12.php.html">Создание простейшего API</a></span></li>
+			<li><span class="file"><a href="1.13.php.html">Отправка и получение заголовков</a></span></li>
+			<li><span class="file"><a href="1.14.php.html">Куки</a></span></li>
+			<li><span class="file"><a href="1.15.php.html">Отправка форм</a></span></li>
+		</ul>
+	</li>
+	<li class="closed"><span class="folder">Глава 2. Работа с базой данных через SQLAlchemy</span>
+		<ul>
+			<li><span class="file"><a href="2.1.php.html">Подключение к базе данных и создание таблиц</a></span></li>
+			<li><span class="file"><a href="2.2.php.html">Взаимодействие с базой данных</a></span></li>
+			<li><span class="file"><a href="2.3.php.html">Базовые операции с базой данных в веб-приложении</a></span></li>
+		</ul>
+	</li>
+</ul>   </div>
+</div>
+
+  <div class="item right">
+<div class="help" style="border: 0px;">
+    
+	<div class="help-item">
+		<div class="help-item-name"><a href="https://metanit.com/settings.php">Настройки</a></div>
+	 </div>
+</div>
+			<div class="help">
+
+      <div class="help-header">Помощь сайту</div>
+
+       <div class="help-item">
+		<div class="help-item-name"><a href="https://yoomoney.ru/to/410011174743222" rel="nofollow">Помощь сайту</a></div>
+	 </div>
+       
+      <div class="help-item">
+		<div class="help-item-name">Юмани:</div>
+		<div class="help-item-req">410011174743222</div>
+	 </div>
+
+		<div class="help-item">
+			<div class="help-item-name">Номер карты:</div>
+			<div class="help-item-req">4048415020898850</div>
+		</div>
+
+      </div>
+
+	<style>
+	#yandex_rtb_R-A-201190-7 { width: 100%; height: 300px;  margin-top:10px;}
+	@media(min-width: 500px) { #yandex_rtb_R-A-201190-7{ width: 336px;} }
+	@media(min-width: 900px) { #yandex_rtb_R-A-201190-7 { width: 160px; height: 600px; position: sticky; top: 10px;} }
+	@media(min-width: 1300px) { #yandex_rtb_R-A-201190-7 { width: 300px; height: 600px; } }
+	</style>
+	<div id="yandex_rtb_R-A-201190-7"></div>
+
+
+
+
+  </div>
+</div>
+
+<div id="footer" style="padding-bottom:85px;">
+
+<div class="bootomLinks">
+<a href="https://vk.com/metanit" title="Присоединиться к группе вконтакте" rel="nofollow">
+Вконтакте</a>|
+ <a href="https://t.me/devnull22" title="Подписаться на телеграм" rel="nofollow">
+Телеграм</a> | 
+<a href="https://metanit.com/donations.php" rel="nofollow">Донаты/Помощь сайту</a>
+</div>
+<p>Contacts: metanit22@mail.ru</p>
+<p>Copyright &copy; Евгений Попов, metanit.com, 2026. Все права защищены.</p>
+
+
+</div>
+
+</div>
+
+<script>window.yaContextCb=window.yaContextCb||[]</script>
+<script src="https://yandex.ru/ads/system/context.js" async></script>
+
+<script>window.yaContextCb.push(()=>{
+  Ya.Context.AdvManager.render({
+    renderTo: 'yandex_rtb_R-A-201190-1',
+    blockId: 'R-A-201190-1'
+  })
+});
+window.yaContextCb.push(()=>{
+  Ya.Context.AdvManager.render({
+    renderTo: 'yandex_rtb_R-A-201190-3',
+    blockId: 'R-A-201190-3'
+  })
+});
+window.yaContextCb.push(()=>{
+  Ya.Context.AdvManager.render({
+    renderTo: 'yandex_rtb_R-A-201190-7',
+    blockId: 'R-A-201190-7'
+  })
+});
+if(document.getElementById("yandex_rtb_R-A-201190-8")){
+window.yaContextCb.push(()=>{
+  Ya.Context.AdvManager.render({
+    renderTo: 'yandex_rtb_R-A-201190-8',
+    blockId: 'R-A-201190-8'
+  })
+});
+}
+if(document.getElementById("yandex_rtb_R-A-201190-9")){
+window.yaContextCb.push(() => {
+    Ya.Context.AdvManager.render({
+        "blockId": "R-A-201190-9",
+        "renderTo": "yandex_rtb_R-A-201190-9"
+    })
+});
+}</script>
+
+
+<script src='syntax16.js'></script>
+<script>
+SyntaxHighlighter.all();
+document.addEventListener('copy', (ev) => {
+const et = event.target;if(et.type==="textarea"){ev.clipboardData.setData('text/plain',et.value.substring(et.selectionStart,et.selectionEnd).replace(/\u00A0/g, " "));ev.preventDefault();}
+});
+console.log("Copyright © Евгений Попов, metani" + "t.com, 2026. Все права защищены.");
+</script>
+<script>
+
+window.yaContextCb.push(() => {
+      if (Ya.Context.AdvManager.getPlatform() === 'desktop') {
+        Ya.Context.AdvManager.render({
+			"blockId": "R-A-201190-11",
+			"type": "floorAd",
+			"platform": "desktop"
+		});
+      } else {
+        Ya.Context.AdvManager.render({
+			"blockId": "R-A-201190-12",
+			"type": "floorAd",
+			"platform": "touch"
+		});
+      }
+  });
+
+
+document.querySelector(".fa-bars").addEventListener("click", ()=>{ 
+		const tree = document.querySelector(".item.left");
+		const display = tree.style.display;
+		if(display=="block") tree.style.display = "none";
+		else tree.style.display = "block";
+});
+
+const menuButton = document.getElementById("menuButton");
+document.getElementById("menuButton").addEventListener("click", ()=>{ 
+		menuButton.classList.toggle("menu-opened");
+		document.querySelector(".mainmenu").classList.toggle("open");
+});
+
+
+document.getElementById("magnifying-glass").addEventListener("click", ()=> 
+	document.getElementById("search").classList.toggle("transp")
+);
+
+document.getElementById("toggle-theme").addEventListener("click", ()=>{
+		if(document.documentElement.hasAttribute("theme")){
+			document.documentElement.removeAttribute("theme");
+			document.cookie="theme=1;expires=Mon, 19 Feb 2001 12:00:00 UTC;path=/;";
+		}
+		else{
+			document.documentElement.setAttribute("theme", "dark");
+			var expire = new Date();
+			expire.setHours(expire.getHours() + 7);
+			document.cookie="theme=1;expires=" + expire.toUTCString() + ";path=/;";
+		}
+	});
+
+
+
+
+document.querySelectorAll(".share .fa-vk").forEach(e => e.addEventListener("click", ()=> window.open("http://vk.com/share.php?url=" + window.location.href,"Поделиться в ВКОНТАКТЕ")));
+document.querySelectorAll(".share .fa-telegram").forEach(e => e.addEventListener("click", ()=> window.open("tg://msg_url/url=" + window.location.href,"Поделиться в Telegram")));
+document.querySelectorAll(".share .fa-odnoklassniki").forEach(e => e.addEventListener("click", ()=>window.open("https://connect.ok.ru/offer?url=" + window.location.href,"Поделиться в Одноклассниках")));
+
+const folders = document.getElementsByClassName("closed");
+for (let i = 0; i < folders.length; i++) {
+  folders[i].addEventListener("click", function() {
+
+    this.classList.toggle("closed");
+    this.classList.toggle("opened");
+  });
+}
+
+const activeItem = document.querySelector(".file a[href='//metanit.com" + location.pathname + "']");
+if(activeItem){
+activeItem.classList.add("aMItem");
+activeItem.parentElement.classList.add("aMItem");
+const activeFolder = activeItem.closest("li.closed");
+activeFolder.classList.toggle("closed");
+activeFolder.classList.toggle("opened");
+activeFolder.querySelector(".folder")?.classList.add("aMItem");
+}
+
+const props = ["--main-font-size", "--main-font-family", "--menc-bg-color", "--container-bg-color", "--menu-bg-color", "--code-font-size", "--code-font-family", "--code-bgcolor", "--code-max-height"];
+for(let i = 0; i < props.length; i++){
+    
+	const propValue = localStorage.getItem(props[i]);
+	if(propValue!==null)document.documentElement.style.setProperty(props[i], propValue);
+}
+</script>
+
+
+<script async defer type="text/javascript" src="https://www.google.ru/coop/cse/brand?form=cse-search-box&amp;lang=ru"></script>
+</body>
+</html>
