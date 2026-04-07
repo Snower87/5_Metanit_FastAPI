@@ -2,7 +2,7 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
-# 1. Передача 2х параметров в запросе
+# 1. Получение/Передача 2х параметров в запросе
 # Строка запроса: http://127.0.0.1:8000/users?name=Tom&age=32
 @app.get("/users")
 def get_users(name, age):
