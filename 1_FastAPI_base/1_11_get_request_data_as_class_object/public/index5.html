@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>METANIT.COM</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <div id="message"></div>
+     <p>
+        Введите имя: <br />
+        <input name="username" id="username" />
+    </p>
+     <p>
+        Введите возраст: <br />
+        <input name="userage" id="userage" type="number" />
+    </p>
+    <button onclick="send()">Отправить</button>
+<script>
+    async function send(){
+
+        // получаем введеные в поля имя и возраст
+        const username = document.getElementById("username").value;
+        // Преобразуем значение возраста в целое число
+        const userage = parseInt(document.getElementById("userage").value, 10);
+
+        // Проверяем, успешно ли произошло преобразование (не NaN)
+        //if (isNaN(userage)) {
+        //    document.getElementById("message").textContent = "Пожалуйста, введите корректный возраст.";
+        //    return;
+        //}
+
+        // отправляем запрос
+        const response = await fetch("/hello5", {
+            method: "POST",
+            headers: { "Accept": "application/json", "Content-Type": "application/json" },
+            body: JSON.stringify({
+                name: "Tom",
+                languages: ["Python", "JavaScript"]
+            })
+        });
+        const data = await response.json();
+        console.log(data);      // {message: "Name: Tom. Languages: ['Python', 'JavaScript']"}
+    }
+</script>
+</body>
+</html>
