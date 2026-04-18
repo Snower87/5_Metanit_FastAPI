@@ -1,0 +1,35 @@
+{
+	"folders": {},
+	"connections": {
+		"sqlite_jdbc-19d9eda265f-23f6a02c49e6f124": {
+			"provider": "sqlite",
+			"driver": "sqlite_jdbc",
+			"name": "sql_app.db",
+			"save-password": true,
+			"configuration": {
+				"database": "C:\\pythonAQA\\cources\\5_Metanit_FastAPI\\2_WorkWith_DB\\2_1_Connect_and_Create_DB\\sql_app.db",
+				"url": "jdbc:sqlite:C:\\pythonAQA\\cources\\5_Metanit_FastAPI\\2_WorkWith_DB\\2_1_Connect_and_Create_DB\\sql_app.db",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"closeIdleConnection": true,
+				"auth-model": "native"
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Разработка",
+			"color": "255,255,255",
+			"description": "База данных для разработки",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"smart-commit": false,
+			"smart-commit-recover": true,
+			"auto-close-transactions": true,
+			"close-transactions-period": 1800,
+			"auto-close-connections": true,
+			"close-connections-period": 14400
+		}
+	}
+}
