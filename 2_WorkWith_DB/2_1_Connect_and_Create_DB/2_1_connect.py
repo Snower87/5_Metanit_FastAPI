@@ -18,15 +18,15 @@ SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db"
 # 3.1 Создаем движок для sqlite
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL,
+    connect_args={"check_same_thread": False}
     # предназначен только для SQLite. Указывает, что для взаимодействия с базой данных SQLite
     # в рамках одного запроса может использоваться больше одного потока.
-    connect_args={"check_same_thread": False}
 )
 
 # 3.2 Создаем движок для работы с другими СУБД
 #engine2 = create_engine(SQLALCHEMY_DATABASE_URL)
 
-# 4. Создаем базовый класс для моделей
+# 4. Создаем базовый класс для моделей. Определение моделей
 class Base(DeclarativeBase): pass
 
 # 5. Cоздаем модель, объекты которой будут храниться в бд
