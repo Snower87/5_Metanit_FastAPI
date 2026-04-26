@@ -14,6 +14,20 @@
 				"closeIdleConnection": true,
 				"auth-model": "native"
 			}
+		},
+		"sqlite_jdbc-19dc9588ee9-76ee4cbdebfa89b6": {
+			"provider": "sqlite",
+			"driver": "sqlite_jdbc",
+			"name": "sql_app.db 2",
+			"save-password": true,
+			"configuration": {
+				"database": "C:\\pythonAQA\\cources\\5_Metanit_FastAPI\\2_WorkWith_DB\\2_3_Real_web_application\\sql_app.db",
+				"url": "jdbc:sqlite:C:\\pythonAQA\\cources\\5_Metanit_FastAPI\\2_WorkWith_DB\\2_3_Real_web_application\\sql_app.db",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"closeIdleConnection": true,
+				"auth-model": "native"
+			}
 		}
 	},
 	"connection-types": {
